@@ -13,6 +13,30 @@ def index():
 def about():
 	return render_template('about.html')
 
+#Articles 
+@app.route('/articles')
+def articles():
+	return render_template('articles.html')
+
+#Nba
+@app.route('/nba')
+def nba():
+	return render_template('nba.html')
+
+#Nfl
+@app.route('/nfl')
+def nfl():
+	return render_template('nfl.html')
+
+#Register
+@app.route('/register')
+def register():
+	return render_template('register.html')
+
+#Login
+@app.route('/login')
+def login():
+	return render_template('login.html')
 
 
 if __name__ == '__main__':
