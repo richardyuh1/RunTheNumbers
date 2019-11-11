@@ -1,4 +1,6 @@
 from flask import Flask, render_template
+from nba import run 
+from datetime import date 
 #from data import Articles
 
 app = Flask(__name__)
@@ -21,7 +23,10 @@ def articles():
 #Nba
 @app.route('/nba')
 def nba():
-	return render_template('nba.html')
+	leader_list = run()
+	today = str(date.today()) 
+	return render_template('nba.html', date = today, name1 = leader_list[0][0], name2 = leader_list[1][0], name3 = leader_list[2][0], 
+		val1 = leader_list[0][1], val2 = leader_list[1][1], val3 = leader_list[2][1])
 
 #Nfl
 @app.route('/nfl')
