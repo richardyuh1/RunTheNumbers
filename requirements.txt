@@ -4,4 +4,3 @@ gunicorn==19.7.1
 datetime
 pandas
 beautifulsoup4
-urllib
