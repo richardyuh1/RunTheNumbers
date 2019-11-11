@@ -21,13 +21,14 @@ def articles():
 	return render_template('articles.html')
 
 #Nba
+'''
 @app.route('/nba')
 def nba():
 	leader_list = run()
 	today = str(date.today()) 
 	return render_template('nba.html', date = today, name1 = leader_list[0][0], name2 = leader_list[1][0], name3 = leader_list[2][0], 
 		val1 = leader_list[0][1], val2 = leader_list[1][1], val3 = leader_list[2][1])
-
+'''
 #Nfl
 @app.route('/nfl')
 def nfl():
