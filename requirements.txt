@@ -1,3 +1,7 @@
 flask>=1.0.0
 werkzeug>=0.15.3
 gunicorn==19.7.1
+datetime
+pandas
+beautifulsoup4
+urllib
