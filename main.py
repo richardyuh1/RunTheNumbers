@@ -1,7 +1,7 @@
 from flask import Flask, render_template
-from nba import run 
 from datetime import date 
 #from data import Articles
+#from nba import run 
 
 app = Flask(__name__)
 
