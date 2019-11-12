@@ -11,6 +11,4 @@ handlers:
 libraries:
 - name: ssl
   version: latest
-- name: numpy
-  version: "1.16.5"
 

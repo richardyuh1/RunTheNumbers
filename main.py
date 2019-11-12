@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 from datetime import date 
 from bs4 import BeautifulSoup
-import pandas as pd 
 
 try:
     # For Python 3.0 and later
@@ -13,26 +12,24 @@ except ImportError:
 app = Flask(__name__)
 
 #Filtered by at least 5 MPG
-def category_leader(stats, n, category):
+def category_leader(stats, n, category_index, player_index, mp_index, headers):
 	category_list = []
 	for i in range(n): 
-		if stats.head(n)[category][i] is None or stats.head(n)[category][i] == '':
+		#print(i) 
+		if stats[0:n][i] is None or len(stats[0:n][i]) == 0:
 			category_list.append(0.0)
 		else:
-			if stats.head(n)['MP'][i] is not None and stats.head(n)['MP'][i] != '' and float(stats.head(n)['MP'][i]) > 10.0:
-				category_list.append(float(stats.head(n)[category][i]))
+			if stats[0:n][i][mp_index] is not None and stats[0:n][i][mp_index] != '' and float(stats[0:n][i][mp_index]) > 10.0:
+				category_list.append(float(stats[0:n][i][category_index]))
 			else:
 				category_list.append(0.0)
 
-	max_pts_index = category_list.index(max(category_list))
+	max_val_index = category_list.index(max(category_list))
 
-	leader = stats.head(n)['Player'][max_pts_index]
+	leader = stats[0:n][max_val_index][player_index]
 	value = max(category_list) 
 
 	return [leader, value]
-	#print("Current {} Leader: ".format(category), scoring_leader)
-	#print("{}: ".format(category), max(category_list))
-
 
 def run(): 
 	#NBA season we will be analyzing
@@ -60,10 +57,14 @@ def run():
 	rows = soup.findAll('tr')[1:]
 	player_stats = [[td.getText() for td in rows[i].findAll('td')] for i in range(len(rows))]
 
-	stats = pd.DataFrame(player_stats, columns = headers) 
+	pts_index = headers.index('PTS')
+	trb_index = headers.index('TRB')
+	ast_index = headers.index('AST')
+	player_index = headers.index('Player')
+	mp_index = headers.index('MP')
 
 	#Number of players to assess
-	n = len(stats)
+	n = len(player_stats)
 
 	category = ['PTS', 'TRB', 'AST', 'BLK', 'MP', '3P%', 'FG%']
 
@@ -71,13 +72,13 @@ def run():
 	leaders = []
 
 	#Assess PPG
-	leaders.append(category_leader(stats, n, category[0]))
+	leaders.append(category_leader(player_stats, n, pts_index, player_index, mp_index, headers))
 
 	#Assess RPG
-	leaders.append(category_leader(stats, n, category[1]))
+	leaders.append(category_leader(player_stats, n, trb_index, player_index, mp_index, headers))
 
 	#Assess APG
-	leaders.append(category_leader(stats, n, category[2]))
+	leaders.append(category_leader(player_stats, n, ast_index, player_index, mp_index, headers))
 
 	#Assess BPG
 	#category_leader(stats, n, category[3])
