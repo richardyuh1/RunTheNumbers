@@ -11,16 +11,18 @@ except ImportError:
 
 app = Flask(__name__)
 
-#Filtered by at least 5 MPG
-def category_leader(stats, n, category_index, player_index, mp_index, headers):
+#Filtered by at least 10 MPG and at least 5 games played 
+def category_leader(stats, n, category_index, player_index, mp_index, game_index, headers):
 	category_list = []
 	for i in range(n): 
-		#print(i) 
-		if stats[0:n][i] is None or len(stats[0:n][i]) == 0:
+		if stats[0:n][i] is None or len(stats[0:n][i]) == 0 or len(stats[0:n][i][category_index]) == 0:
 			category_list.append(0.0)
 		else:
 			if stats[0:n][i][mp_index] is not None and stats[0:n][i][mp_index] != '' and float(stats[0:n][i][mp_index]) > 10.0:
-				category_list.append(float(stats[0:n][i][category_index]))
+				if stats[0:n][i][game_index] is not None and stats[0:n][i][game_index] != '' and float(stats[0:n][i][game_index]) > 4.0:
+					category_list.append(float(stats[0:n][i][category_index]))
+				else:
+					category_list.append(0.0)
 			else:
 				category_list.append(0.0)
 
@@ -57,40 +59,52 @@ def run():
 	rows = soup.findAll('tr')[1:]
 	player_stats = [[td.getText() for td in rows[i].findAll('td')] for i in range(len(rows))]
 
-	pts_index = headers.index('PTS')
+	'''
+	['Player', 'Pos', 'Age', 'Tm', 'G', 'GS', 'MP', 'FG', 'FGA', 'FG%', '3P', 
+	'3PA', '3P%', '2P', '2PA', '2P%', 'eFG%', 'FT', 'FTA', 'FT%', 'ORB', 'DRB', 
+	'TRB', 'AST', 'STL', 'BLK', 'TOV', 'PF', 'PTS']
+	'''
+	player_index = headers.index('Player')
+	pos_index = headers.index('Pos')
+	age_index = headers.index('Age')
+	trey_percent_index = headers.index('3P%')
+	fg_percent_index = headers.index('FG%')
+	mp_index = headers.index('MP')
 	trb_index = headers.index('TRB')
 	ast_index = headers.index('AST')
-	player_index = headers.index('Player')
-	mp_index = headers.index('MP')
+	stl_index = headers.index('STL')
+	blk_index = headers.index('BLK')
+	tov_index = headers.index('TOV')
+	pf_index = headers.index('PF')
+	pts_index = headers.index('PTS')
+	game_index = headers.index('G')
 
 	#Number of players to assess
 	n = len(player_stats)
-
-	category = ['PTS', 'TRB', 'AST', 'BLK', 'MP', '3P%', 'FG%']
 
 	#print(stats.head(n))
 	leaders = []
 
 	#Assess PPG
-	leaders.append(category_leader(player_stats, n, pts_index, player_index, mp_index, headers))
+	leaders.append(category_leader(player_stats, n, pts_index, player_index, mp_index, game_index, headers))
 
 	#Assess RPG
-	leaders.append(category_leader(player_stats, n, trb_index, player_index, mp_index, headers))
+	leaders.append(category_leader(player_stats, n, trb_index, player_index, mp_index, game_index, headers))
 
 	#Assess APG
-	leaders.append(category_leader(player_stats, n, ast_index, player_index, mp_index, headers))
+	leaders.append(category_leader(player_stats, n, ast_index, player_index, mp_index, game_index, headers))
 
 	#Assess BPG
-	#category_leader(stats, n, category[3])
+	leaders.append(category_leader(player_stats, n, blk_index, player_index, mp_index, game_index, headers))
 
 	#Assess MPG
-	#category_leader(stats, n, category[4])
+	#leaders.append(category_leader(player_stats, n, mp_index, player_index, mp_index, headers))
 
 	#Assess 3P% Per Game
-	#category_leader(stats, n, category[5])
+	leaders.append(category_leader(player_stats, n, trey_percent_index, player_index, mp_index, game_index, headers))
 
 	#Assess FG% Per Game
-	#category_leader(stats, n, category[6])
+	leaders.append(category_leader(player_stats, n, fg_percent_index, player_index, mp_index, game_index, headers))
 
 	return leaders 
 
@@ -115,12 +129,14 @@ def nba():
 	leader_list = run()
 	today = str(date.today()) 
 	return render_template('nba.html', date = today, name1 = leader_list[0][0], name2 = leader_list[1][0], name3 = leader_list[2][0], 
-		val1 = leader_list[0][1], val2 = leader_list[1][1], val3 = leader_list[2][1])
+		name4 = leader_list[3][0], name5 = leader_list[4][0], name6 = leader_list[5][0], val1 = leader_list[0][1], val2 = leader_list[1][1], 
+		val3 = leader_list[2][1], val4 = leader_list[3][1], val5 = leader_list[4][1], val6 = leader_list[5][1])
 
 #Nfl
 @app.route('/nfl')
 def nfl():
-	return render_template('nfl.html')
+	today = str(date.today())
+	return render_template('nfl.html', date = today)
 
 #Register
 @app.route('/register')

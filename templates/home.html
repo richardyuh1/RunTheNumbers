@@ -2,15 +2,22 @@
 
 {% block body %}
 	<div class="jumbotron text-center">
-		<h1>Welcome to Richard Yuh's Run The Numbers Sports Analysis Page</h1>
+		<h1>Welcome to Richard Yuh's<br>
+			Run The Numbers Sports Analysis Page</h1>
 		<p class="lead">The #1 Source for NBA and NFL Content</p>
 		{% if session.logged_in == NULL %}
 			<a href="/register" class="btn btn-primary btn-lg">Register</a>
 			<a href="/login" class="btn btn-success btn-lg">Login</a>
 		{% endif %}
 	</div>
-	<img src = "https://images.complex.com/complex/image/upload/c_limit,dpr_auto,q_90,w_720/fl_lossy,pg_1/dtcgpflfr7yxaucc7sfz.jpg" alt = "NFL Logo" width = "330" height = "370" hspace = "20">
-	<img src = "https://www.logodesignlove.com/images/classic/nba-logo.jpg" alt = "NBA Logo" width = "400" height = "380">
-	<img src = "https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Major_League_Baseball_logo.svg/1200px-Major_League_Baseball_logo.svg.png" alt = "MLB Logo" width = "330" height = "250">
+	<div style="background-image: url('https://shawglobalnews.files.wordpress.com/2019/10/larry-obrien.jpg?quality=70&strip=all&w=720');">
+	</div>
+	<div class="background">
+		<div class="logoaligncenter">
+			<img src = "https://www.logodesignlove.com/images/classic/nba-logo.jpg" alt = "NBA Logo" width = "400" height = "380">
+			<img src = "https://images.complex.com/complex/image/upload/c_limit,dpr_auto,q_90,w_720/fl_lossy,pg_1/dtcgpflfr7yxaucc7sfz.jpg" alt = "NFL Logo" width = "330" height = "370" hspace = "20">
+		</div>
+	</div>
+
 {% endblock %}
 
