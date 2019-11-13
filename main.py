@@ -195,11 +195,26 @@ def about():
 def articles():
 	return render_template('articles.html')
 
-#Test page 
+#Rockets Page 
 @app.route('/rockets')
 def rockets(): 
 	return render_template('rockets.html')
 
+#Lakers Page
+@app.route('/lakers')
+def lakers():
+	return render_template('lakers.html')
+
+#Nets Page
+@app.route('/nets')
+def nets():
+	return render_template('nets.html')
+
+#Pistons Page
+@app.route('/pistons')
+def pistons():
+	return render_template('pistons.html')
+	
 #Nba
 @app.route('/nba')
 def nba():
