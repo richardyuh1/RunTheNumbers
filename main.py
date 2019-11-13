@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, request, render_template
 from datetime import date 
 from bs4 import BeautifulSoup
 
@@ -194,6 +194,11 @@ def about():
 @app.route('/articles')
 def articles():
 	return render_template('articles.html')
+
+#Test page 
+@app.route('/rockets')
+def rockets(): 
+	return render_template('rockets.html')
 
 #Nba
 @app.route('/nba')
