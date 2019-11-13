@@ -108,6 +108,78 @@ def run():
 
 	return leaders 
 
+def extract_name(th): 
+	html_line = str(th)
+	sub = "htm"
+	sub2 = "</a>"
+	index = html_line.find(sub)
+	index2 = html_line.find(sub2)
+	player_name = html_line[index+5:index2]
+	return player_name 
+
+def extract_category(th): 
+	html_line = str(th) 
+	sub = "ng>" 
+	sub2 = "</s"
+	index = html_line.find(sub)
+	index2 = html_line.find(sub2) 
+	category = html_line[index+3:index2]
+	return category 
+
+def extract_points(th): 
+	html_line = str(th) 
+	sub = "</a>"
+	index = html_line.find(sub)
+	html_updated = html_line[index+5:]
+	index2 = html_updated.find(sub) 
+	sub2 = "</div>"
+	index3 = html_updated.find(sub2)
+	val = html_updated[index2+5:index3] 
+	final = ""
+	for c in val: 
+		if c != "(" and c != ")" and c != " ":
+			final += c
+	return final 
+
+def nfl_run(): 
+	#NFL season we will be analyzing
+	year = 2020
+
+	#URL page we will be scraping 
+
+	url = "https://www.pro-football-reference.com/leaders/"
+
+	#HTML from given URL 
+	html = urlopen(url) 
+
+	soup = BeautifulSoup(html, features='html.parser') 
+
+	th_all = soup.findAll('div', {'class' : 'tabular_row'}, limit = 39)
+
+	#print(th_all)
+
+	player_list = [] 
+	category_list = [] 
+	points_list = [] 
+
+	for th in th_all:
+		player_list.append(extract_name(th))
+		category_list.append(extract_category(th))
+		points_list.append(extract_points(th))
+		#print(th) 
+
+
+	category_type = ['Passes Completed', 'Passing Yds', 'Passer Rating', 'Passing Yds/Game', 'Pass Completion %', 'QBR']
+
+	leaders = [] 
+
+	for c in category_type: 
+		str_player = player_list[category_list.index(c)]
+		str_point = points_list[category_list.index(c)]
+		leaders.append([str_player, str_point])
+
+	return leaders 
+
 #Index
 @app.route('/')
 def index():
@@ -135,8 +207,11 @@ def nba():
 #Nfl
 @app.route('/nfl')
 def nfl():
+	leader_list = nfl_run() 
 	today = str(date.today())
-	return render_template('nfl.html', date = today)
+	return render_template('nfl.html', date = today, name1 = leader_list[0][0], name2 = leader_list[1][0], name3 = leader_list[2][0], 
+		name4 = leader_list[3][0], name5 = leader_list[4][0], name6 = leader_list[5][0], val1 = leader_list[0][1], val2 = leader_list[1][1], 
+		val3 = leader_list[2][1], val4 = leader_list[3][1], val5 = leader_list[4][1], val6 = leader_list[5][1])
 
 #Register
 @app.route('/register')
