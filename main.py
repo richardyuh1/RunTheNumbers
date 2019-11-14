@@ -169,7 +169,7 @@ def nfl_run():
 		#print(th) 
 
 
-	category_type = ['Passes Completed', 'Passing Yds', 'Passer Rating', 'Passing Yds/Game', 'Pass Completion %', 'QBR']
+	category_type = ['Passes Completed', 'Passing Yds', 'Passer Rating', 'Passing Yds/Game', 'Pass Completion %', 'Yds/Rushing Att']
 
 	leaders = [] 
 
@@ -214,6 +214,16 @@ def nets():
 @app.route('/pistons')
 def pistons():
 	return render_template('pistons.html')
+
+#Celtics Page
+@app.route('/celtics')
+def celtics(): 
+	return render_template('celtics.html')
+
+#Magic Page
+@app.route('/magic')
+def magic(): 
+	return render_template('magic.html') 
 	
 #Nba
 @app.route('/nba')
