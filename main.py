@@ -224,6 +224,26 @@ def celtics():
 @app.route('/magic')
 def magic(): 
 	return render_template('magic.html') 
+
+#NBA Team Index 
+@app.route('/nbateams')
+def nbateams(): 
+	return render_template('nbateams.html')
+
+#NFL Team Index 
+@app.route('/nflteams')
+def nflteams(): 
+	return render_template('nflteams.html')
+
+#NBA Team Standings 
+@app.route('/nbateamstandings')
+def nbateamstandings(): 
+	return render_template('nbateamstandings.html')
+
+#NFL Team Index
+@app.route('/nflteamstandings')
+def nflteamstandings(): 
+	return render_template('nflteamstandings.html')
 	
 #Nba
 @app.route('/nba')
