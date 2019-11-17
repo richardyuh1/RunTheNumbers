@@ -247,7 +247,7 @@ def nba_standings():
 		west_wins.append(extract_team_wins(link))
 		west_losses.append(extract_team_losses(link))
 
-	east_standings_copy = east_standings.copy() 
+	east_standings_copy = east_standings[:]
 	east_standings_copy.extend(west_standings) 
 	all_teams = extract_team_html(east_standings_copy) 
 
