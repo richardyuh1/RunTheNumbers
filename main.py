@@ -108,6 +108,7 @@ def run():
 
 	return leaders 
 
+#NFL Analysis Functions
 def extract_name(th): 
 	html_line = str(th)
 	sub = "htm"
@@ -180,6 +181,78 @@ def nfl_run():
 
 	return leaders 
 
+#NBA Team Standings Functions 
+def extract_team_name(link): 
+	linkstr = str(link)
+	index = linkstr.find("html")
+	index2 = linkstr.find("</a>")
+	name = linkstr[index+6:index2]
+	return name
+
+def extract_team_wins(link): 
+	linkstr = str(link)
+	index = linkstr.find("wins")
+	linkstr_updated = linkstr[index+6:]
+	index2 = linkstr_updated.find("</td>")
+	name = linkstr_updated[0:index2]
+	return name 
+
+def extract_team_losses(link): 
+	linkstr = str(link)
+	index = linkstr.find("losses")
+	linkstr_updated = linkstr[index+8:]
+	index2 = linkstr_updated.find("</td>")
+	name = linkstr_updated[0:index2]
+	return name 
+
+def extract_team_html(all_teams):
+	team_list = [] 
+	for team in all_teams:
+		split_name_list = team.split(" ")
+		name = split_name_list[-1]
+		team_list.append(name.lower())
+	return team_list 
+
+def nba_standings():
+	#URL page we will be scraping 
+
+	url = "https://www.basketball-reference.com/leagues/NBA_2020_standings.html"
+
+	#HTML from given URL 
+	html = urlopen(url) 
+
+	soup = BeautifulSoup(html, features='html.parser') 
+
+	#th_all = soup.findAll('a', {'class' : 'AnchorLink'}, limit = 100)
+	th_all = soup.findAll('tr', {'class' : 'full_table'}, limit = 30)
+
+	east_teams_raw = th_all[0:15] 
+	west_teams_raw = th_all[15:30]
+
+	east_standings = [] 
+	east_wins = [] 
+	east_losses = []
+	west_standings = [] 
+	west_wins = [] 
+	west_losses = [] 
+	all_teams = [] 
+
+	for link in east_teams_raw:
+		east_standings.append(extract_team_name(link))
+		east_wins.append(extract_team_wins(link))
+		east_losses.append(extract_team_losses(link))
+
+	for link in west_teams_raw:
+		west_standings.append(extract_team_name(link))
+		west_wins.append(extract_team_wins(link))
+		west_losses.append(extract_team_losses(link))
+
+	east_standings_copy = east_standings.copy() 
+	east_standings_copy.extend(west_standings) 
+	all_teams = extract_team_html(east_standings_copy) 
+
+	return [east_standings, east_wins, east_losses, west_standings, west_wins, west_losses, all_teams] 
+
 #Index
 @app.route('/')
 def index():
@@ -238,7 +311,17 @@ def nflteams():
 #NBA Team Standings 
 @app.route('/nbateamstandings')
 def nbateamstandings(): 
-	return render_template('nbateamstandings.html')
+	standings = nba_standings() 
+	east_standings = standings[0]
+	east_wins = standings[1] 
+	east_losses = standings[2] 
+	west_standings = standings[3]
+	west_wins = standings[4] 
+	west_losses = standings[5] 
+	east_teams = standings[6][0:15]
+	west_teams = standings[6][15:30]
+	return render_template('nbateamstandings.html', eaststandings = east_standings, weststandings = west_standings, eastteams = east_teams, 
+		westteams = west_teams, eastwins = east_wins, eastlosses = east_losses, westwins = west_wins, westlosses = west_losses) 
 
 #NFL Team Index
 @app.route('/nflteamstandings')

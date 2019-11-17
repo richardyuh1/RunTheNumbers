@@ -9,42 +9,18 @@
 		<p>
 			<img src = "https://sportsfly.cbsistatic.com/fly-461/bundles/sportsmediacss/images/conference-logos/nba/WEST.svg" alt = "Western Conference Logo" alt = "Western Conference Logo" width = "250" height = "250">
 			<h2>Western Conference</h2> 
-			<a href="/lakers">Los Angeles Lakers</a><br>
-			<a href="/rockets">Houston Rockets</a><br>
-			<a href="/nuggets">Denver Nuggets</a><br>
-			<a href="/jazz">Utah Jazz</a><br>
-			<a href="/suns">Phoenix Suns</a><br>
-			<a href="/clippers">Los Angeles Clippers</a><br>
-			<a href="/timberwolves">Minnesota Timberwolves</a><br>
-			<a href="/mavericks">Dallas Mavericks</a><br>
-			<a href="/grizzlies">Memphis Grizzlies</a><br>
-			<a href="/spurs">San Antonio Spurs</a><br>
-			<a href="/thunder">Oklahoma City Thunder</a><br>
-			<a href="/kings">Sacramento Kings</a><br>
-			<a href="/trailblazers">Portland Trailblazers</a><br>
-			<a href="/pelicans">New Orleans Pelicans</a><br>
-			<a href="/warriors">Golden State Warriors</a><br>
+			{% for team in weststandings %}
+			<a href="/{{westteams[loop.index0]}}">{{team}}:</a> {{westwins[loop.index0]}}-{{westlosses[loop.index0]}}<br>
+			{% endfor %}
 		</p>
 	</div>
 	<div class = "column">
 		<p>
 			<img src = "https://sportsfly.cbsistatic.com/fly-461/bundles/sportsmediacss/images/conference-logos/nba/EAST.svg" alt = "Eastern Conference Logo" width = "250" height = "250">
 			<h2>Eastern Conference</h2> 
-			<a href="/celtics">Boston Celtics</a><br>
-			<a href="/heat">Miami Heat</a><br>
-			<a href="/bucks">Milwaukee Bucks</a><br>
-			<a href="/raptors">Toronto Raptors</a><br>
-			<a href="/76ers">Philadelphia 76ers</a><br>
-			<a href="/pacers">Indiana Pacers</a><br>
-			<a href="/hornets">Charlotte Hornets</a><br>
-			<a href="/magic">Orlando Magic</a><br>
-			<a href="/nets">Brooklyn Nets</a><br>
-			<a href="/cavaliers">Cleveland Cavaliers</a><br>
-			<a href="/hawks">Atlanta Hawks</a><br>
-			<a href="/bulls">Chicago Bulls</a><br>
-			<a href="/pistons">Detroit Pistons</a><br>
-			<a href="/wizards">Washington Wizards</a><br>
-			<a href="/knicks">New York Knicks</a><br>
+			{% for team in eaststandings %}
+			<a href = "/{{eastteams[loop.index0]}}">{{team}}:</a> {{eastwins[loop.index0]}}-{{eastlosses[loop.index0]}}<br>
+			{% endfor %}
 		</p>
 	</div>
 </div>
