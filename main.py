@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect 
 from datetime import date 
 from bs4 import BeautifulSoup
 
@@ -213,6 +213,13 @@ def extract_team_html(all_teams):
 		team_list.append(name.lower())
 	return team_list 
 
+def extract_nba_seed(link):
+	linkstr = str(link)
+	index = linkstr.find("seed")
+	index2 = linkstr[index:].find(")")
+	seed = linkstr[index+7:index+index2]
+	return seed 
+
 def nba_standings():
 	#URL page we will be scraping 
 
@@ -228,7 +235,7 @@ def nba_standings():
 
 	east_teams_raw = th_all[0:15] 
 	west_teams_raw = th_all[15:30]
-
+	
 	east_standings = [] 
 	east_wins = [] 
 	east_losses = []
@@ -236,22 +243,78 @@ def nba_standings():
 	west_wins = [] 
 	west_losses = [] 
 	all_teams = [] 
+	east_seed = []
+	west_seed = [] 
 
 	for link in east_teams_raw:
 		east_standings.append(extract_team_name(link))
 		east_wins.append(extract_team_wins(link))
 		east_losses.append(extract_team_losses(link))
+		east_seed.append(extract_nba_seed(link))
 
 	for link in west_teams_raw:
 		west_standings.append(extract_team_name(link))
 		west_wins.append(extract_team_wins(link))
 		west_losses.append(extract_team_losses(link))
+		west_seed.append(extract_nba_seed(link))
 
 	east_standings_copy = east_standings[:]
 	east_standings_copy.extend(west_standings) 
 	all_teams = extract_team_html(east_standings_copy) 
 
-	return [east_standings, east_wins, east_losses, west_standings, west_wins, west_losses, all_teams] 
+	return [east_standings, east_wins, east_losses, west_standings, west_wins, west_losses, all_teams, east_seed, west_seed] 
+
+#NFL Team Standings 
+def extract_nfl_page(name):
+	arr = name.split(" ")
+	return arr[-1].lower()
+
+def extract_nfl_name(th): 
+	index = th.find("htm")
+	index2 = th.find("</a")
+	teamname = th[index+5:index2]
+	index3 = th.find("wins")
+	index4 = th[index3:].find("</td>")
+	wins = th[index3+6:index3+index4]
+	index5 = th.find("losses")
+	index6 = th[index5:].find("</td>")
+	losses = th[index5+8:index5+index6]
+	page = extract_nfl_page(teamname)
+	return [teamname, wins, losses, page]
+
+def nfl_standings():
+
+	#URL page we will be scraping 
+	url = "https://www.pro-football-reference.com/years/2019/index.htm"
+
+	#HTML from given URL 
+	html = urlopen(url) 
+
+	soup = BeautifulSoup(html, features='html.parser') 
+
+	th_all = soup.findAll('tr', limit = 42)
+	th_all = th_all[1:]
+
+	#Grouped by 5s 
+	#Remove 0, 5, 10, 15, 20, 21, 26, 31, 36
+
+	th_all[0] = None 
+	th_all[5] = None 
+	th_all[10] = None
+	th_all[15] = None
+	th_all[20] = None
+	th_all[21] = None
+	th_all[26] = None 
+	th_all[31] = None
+	th_all[36] = None 
+
+	team_list = [] 
+
+	for th in th_all:
+		if th is not None:
+			team_list.append(extract_nfl_name(str(th)))
+	
+	return team_list
 
 #Index
 @app.route('/')
@@ -271,32 +334,367 @@ def articles():
 #Rockets Page 
 @app.route('/rockets')
 def rockets(): 
-	return render_template('rockets.html')
+	standings = nba_standings() 
+	west_standings = standings[3]
+	west_wins = standings[4] 
+	west_losses = standings[5] 
+	west_seed = standings[8]
+	team_index = 0 
+	for index in range(len(west_standings)):
+		if 'rockets' in west_standings[index].lower():
+			team_index = index 
+	return render_template('rockets.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index])
 
 #Lakers Page
 @app.route('/lakers')
 def lakers():
-	return render_template('lakers.html')
+	standings = nba_standings() 
+	west_standings = standings[3]
+	west_wins = standings[4] 
+	west_losses = standings[5] 
+	west_seed = standings[8]
+	team_index = 0 
+	for index in range(len(west_standings)):
+		if 'lakers' in west_standings[index].lower():
+			team_index = index 
+	return render_template('lakers.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index])
+
+#Nuggets Page
+@app.route('/nuggets')
+def nuggets():
+	return redirect("https://en.wikipedia.org/wiki/Denver_Nuggets")
+
+#Jazz Page
+@app.route('/jazz')
+def jazz():
+	return redirect("https://en.wikipedia.org/wiki/Utah_Jazz")
+
+#Suns Page
+@app.route('/suns')
+def suns():
+	return redirect("https://en.wikipedia.org/wiki/Phoenix_Suns")
+
+#Clippers Page
+@app.route('/clippers')
+def clippers():
+	return redirect("https://en.wikipedia.org/wiki/Los_Angeles_Clippers")
+
+#Mavericks Page
+@app.route('/mavericks')
+def mavericks():
+	return redirect("https://en.wikipedia.org/wiki/Dallas_Mavericks")
+
+#Timberwolves Page
+@app.route('/timberwolves')
+def timberwolves():
+	return redirect("https://en.wikipedia.org/wiki/Minnesota_Timberwolves")
+
+#Grizzlies Page
+@app.route('/grizzlies')
+def grizzlies():
+	return redirect("https://en.wikipedia.org/wiki/Memphis_Grizzlies")
+
+#Thunder Page
+@app.route('/thunder')
+def thunder():
+	return redirect("https://en.wikipedia.org/wiki/Oklahoma_City_Thunder")
+
+#Blazers Page
+@app.route('/blazers')
+def blazers():
+	return redirect("https://en.wikipedia.org/wiki/Portland_Trailblazers")
+
+#Spurs Page
+@app.route('/spurs')
+def spurs():
+	return redirect("https://en.wikipedia.org/wiki/San_Antonio_Spurs")
+
+#Kings Page
+@app.route('/kings')
+def kings():
+	return redirect("https://en.wikipedia.org/wiki/Sacramento_Kings")
+
+#Pelicans Page
+@app.route('/pelicans')
+def pelicans():
+	return redirect("https://en.wikipedia.org/wiki/New_Orleans_Pelicans")
+
+#Warriors Page
+@app.route('/warriors')
+def warriors():
+	return redirect("https://en.wikipedia.org/wiki/Golden_State_Warriors")
+
+#Heat Page
+@app.route('/heat')
+def heat():
+	return redirect("https://en.wikipedia.org/wiki/Miami_Heat")
+
+#Bucks Page
+@app.route('/bucks')
+def bucks():
+	return redirect("https://en.wikipedia.org/wiki/Milwaukee_Bucks")
+
+#Raptors Page
+@app.route('/raptors')
+def raptors():
+	return redirect("https://en.wikipedia.org/wiki/Toronto_Raptors")
+
+#76ers Page
+@app.route('/76ers')
+def sixers():
+	return redirect("https://en.wikipedia.org/wiki/Philadelphia_76ers")
+
+#Pacers Page
+@app.route('/pacers')
+def pacers():
+	return redirect("https://en.wikipedia.org/wiki/Indiana_Pacers")
+
+#Hornets Page
+@app.route('/hornets')
+def hornets():
+	return redirect("https://en.wikipedia.org/wiki/Charlotte_Hornets")
+
+#Cavaliers Page
+@app.route('/cavaliers')
+def cavaliers():
+	return redirect("https://en.wikipedia.org/wiki/Cleveland_Cavaliers")
+
+#Hawks Page
+@app.route('/hawks')
+def hawks():
+	return redirect("https://en.wikipedia.org/wiki/Atlanta_Hawks")
+
+#Bulls Page
+@app.route('/bulls')
+def bulls():
+	return redirect("https://en.wikipedia.org/wiki/Chicago_Bulls")
+
+#Wizards Page
+@app.route('/wizards')
+def wizards():
+	return redirect("https://en.wikipedia.org/wiki/Washington_Wizards")
+
+#Knicks Page
+@app.route('/knicks')
+def knicks():
+	return redirect("https://en.wikipedia.org/wiki/New_York_Knicks")
 
 #Nets Page
 @app.route('/nets')
 def nets():
-	return render_template('nets.html')
+	standings = nba_standings() 
+	east_standings = standings[0]
+	east_wins = standings[1] 
+	east_losses = standings[2] 
+	east_seed = standings[7]
+	team_index = 0 
+	for index in range(len(east_standings)):
+		if 'nets' in east_standings[index].lower():
+			team_index = index 
+	return render_template('nets.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index])
 
 #Pistons Page
 @app.route('/pistons')
 def pistons():
-	return render_template('pistons.html')
+	standings = nba_standings() 
+	east_standings = standings[0]
+	east_wins = standings[1] 
+	east_losses = standings[2] 
+	east_seed = standings[7]
+	team_index = 0 
+	for index in range(len(east_standings)):
+		if 'pistons' in east_standings[index].lower():
+			team_index = index 
+	return render_template('pistons.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index])
 
 #Celtics Page
 @app.route('/celtics')
 def celtics(): 
-	return render_template('celtics.html')
+	standings = nba_standings() 
+	east_standings = standings[0]
+	east_wins = standings[1] 
+	east_losses = standings[2] 
+	east_seed = standings[7]
+	celtics_index = 0 
+	for index in range(len(east_standings)):
+		if 'celtics' in east_standings[index].lower():
+			celtics_index = index 
+	return render_template('celtics.html', wins = east_wins[celtics_index], losses = east_losses[celtics_index], seed = east_seed[celtics_index])
 
 #Magic Page
 @app.route('/magic')
 def magic(): 
-	return render_template('magic.html') 
+	standings = nba_standings() 
+	east_standings = standings[0]
+	east_wins = standings[1] 
+	east_losses = standings[2] 
+	east_seed = standings[7]
+	magic_index = 0 
+	for index in range(len(east_standings)):
+		if 'magic' in east_standings[index].lower():
+			magic_index = index 
+	return render_template('magic.html', wins = east_wins[magic_index], losses = east_losses[magic_index], seed = east_seed[magic_index])
+
+
+#Patriots Page
+@app.route('/patriots')
+def patriots():
+	return redirect("https://en.wikipedia.org/wiki/New_England_Patriots")
+
+#Bills Page
+@app.route('/bills')
+def bills():
+	return redirect("https://en.wikipedia.org/wiki/Buffalo_Bills")
+
+#Dolphins Page
+@app.route('/dolphins')
+def dolphins():
+	return redirect("https://en.wikipedia.org/wiki/Miami_Dolphins")
+
+#Jets Page 
+@app.route('/jets')
+def jets():
+	return redirect("https://en.wikipedia.org/wiki/New_York_Jets")
+
+#Chiefs Page 
+@app.route('/chiefs')
+def chiefs():
+	return redirect("https://en.wikipedia.org/wiki/Kansas_City_Chiefs")
+
+#Raiders Page 
+@app.route('/raiders')
+def raiders():
+	return redirect("https://en.wikipedia.org/wiki/Oakland_Raiders")
+
+#Chargers Page 
+@app.route('/chargers')
+def chargers():
+	return redirect("https://en.wikipedia.org/wiki/Los_Angeles_Chargers")
+
+#Broncos Page 
+@app.route('/broncos')
+def broncos():
+	return redirect("https://en.wikipedia.org/wiki/Denver_Broncos")
+
+#Ravens Page 
+@app.route('/ravens')
+def ravens():
+	return redirect("https://en.wikipedia.org/wiki/Baltimore_Ravens")
+
+#Steelers Page 
+@app.route('/steelers')
+def steelers():
+	return redirect("https://en.wikipedia.org/wiki/Pittsburgh_Steelers")
+
+#Bengals Page 
+@app.route('/bengals')
+def bengals():
+	return redirect("https://en.wikipedia.org/wiki/Cincinnati_Bengals")
+
+#Browns Page 
+@app.route('/browns')
+def browns():
+	return redirect("https://en.wikipedia.org/wiki/Cleveland_Browns")
+
+#Texans Page 
+@app.route('/texans')
+def texans():
+	return redirect("https://en.wikipedia.org/wiki/Houston_Texans")
+
+#Colts Page 
+@app.route('/colts')
+def colts():
+	return redirect("https://en.wikipedia.org/wiki/Indianapolis_Colts")
+
+#Titans Page 
+@app.route('/titans')
+def titans():
+	return redirect("https://en.wikipedia.org/wiki/Tennessee_Titans")
+
+#Jaguars Page
+@app.route('/jaguars')
+def jaguars():
+	return redirect("https://en.wikipedia.org/wiki/Jacksonville_Jaguars")
+
+#Eagles Page
+@app.route('/eagles')
+def eagles():
+	return redirect("https://en.wikipedia.org/wiki/Philadelphia_Eagles")
+
+#Cowboys Page
+@app.route('/cowboys')
+def cowboys():
+	return redirect("https://en.wikipedia.org/wiki/Dallas_Cowboys")
+
+#Giants Page
+@app.route('/giants')
+def giants():
+	return redirect("https://en.wikipedia.org/wiki/New_York_Giants")
+
+#Redskins Page
+@app.route('/redskins')
+def redskins():
+	return redirect("https://en.wikipedia.org/wiki/Washington_Redskins")
+
+#49ers Page
+@app.route('/49ers')
+def niners():
+	return redirect("https://en.wikipedia.org/wiki/San_Francisco_49ers")
+
+#Seahawks Page
+@app.route('/seahawks')
+def seahawks():
+	return redirect("https://en.wikipedia.org/wiki/Seattle_Seahawks")
+
+#Rams Page
+@app.route('/rams')
+def rams():
+	return redirect("https://en.wikipedia.org/wiki/Los_Angeles_Rams")
+
+#Cardinals Page
+@app.route('/cardinals')
+def cardinals():
+	return redirect("https://en.wikipedia.org/wiki/Arizona_Cardinals")
+
+#Packers Page
+@app.route('/packers')
+def packers():
+	return redirect("https://en.wikipedia.org/wiki/Green_Bay_Packers")
+
+#Vikings Page
+@app.route('/vikings')
+def vikings():
+	return redirect("https://en.wikipedia.org/wiki/Minnesota_Vikings")
+
+#Bears Page
+@app.route('/bears')
+def bears():
+	return redirect("https://en.wikipedia.org/wiki/Chicago_Bears")
+
+#Lions Page
+@app.route('/lions')
+def lions():
+	return redirect("https://en.wikipedia.org/wiki/Detroit_Lions")
+
+#Saints Page
+@app.route('/saints')
+def saints():
+	return redirect("https://en.wikipedia.org/wiki/New_Orleans_Saints")
+
+#Panthers Page
+@app.route('/panthers')
+def panthers():
+	return redirect("https://en.wikipedia.org/wiki/Carolina_Panthers")
+
+#Buccaneers Page
+@app.route('/buccaneers')
+def buccaneers():
+	return redirect("https://en.wikipedia.org/wiki/Tampa_Bay_Buccaneers")
+
+#Falcons Page
+@app.route('/falcons')
+def falcons():
+	return redirect("https://en.wikipedia.org/wiki/Atlanta_Falcons")
 
 #NBA Team Index 
 @app.route('/nbateams')
@@ -326,7 +724,17 @@ def nbateamstandings():
 #NFL Team Index
 @app.route('/nflteamstandings')
 def nflteamstandings(): 
-	return render_template('nflteamstandings.html')
+	nflstandings = nfl_standings()
+	afc_east = nflstandings[0:4]
+	afc_north = nflstandings[4:8]
+	afc_south = nflstandings[8:12]
+	afc_west = nflstandings[12:16]
+	nfc_east = nflstandings[16:20]
+	nfc_north = nflstandings[20:24]
+	nfc_south = nflstandings[24:28]
+	nfc_west = nflstandings[28:32]
+	return render_template('nflteamstandings.html', afceast = afc_east, afcnorth = afc_north, afcsouth = afc_south, afcwest = afc_west, 
+		nfceast = nfc_east, nfcnorth = nfc_north, nfcsouth = nfc_south, nfcwest = nfc_west)
 	
 #Nba
 @app.route('/nba')

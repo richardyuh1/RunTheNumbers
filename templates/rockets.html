@@ -6,7 +6,18 @@
 	<b>Coach: Mike D'Antoni</b><br>
 	<b>GM: Daryl Morey</b><br> 
 	<b>Arena: Toyota Center</b><br>
-	<b>Record: 7-3 (3rd seed)</b><br>
+	<b>
+		Record: {{wins}}-{{losses}}
+		{% if seed == '1' %}
+		({{seed}}st seed)
+		{% elif seed == '2' %}
+		({{seed}}nd seed)
+		{% elif seed == '3' %}
+		({{seed}}rd seed)
+		{% else %}
+		({{seed}}th seed)
+		{% endif %}
+	</b><br>
 	<b>Conference: West</b>
 	<div class = "teampic">
 		<img src = "https://www.nba.com/images/cms/2019-09/USATSI_13421438.jpg?cw=1920&w=2196&x=0&ch=1080&h=1509&y=165" alt = "rockets_team" width = "580" height = "350">

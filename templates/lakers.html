@@ -6,7 +6,18 @@
 	<b>Coach: Frank Vogel</b><br>
 	<b>GM: Rob Pelinka</b><br> 
 	<b>Arena: Staples Center</b><br>
-	<b>Record: 8-2 (1st seed)</b><br>
+	<b>
+		Record: {{wins}}-{{losses}}
+		{% if seed == '1' %}
+		({{seed}}st seed)
+		{% elif seed == '2' %}
+		({{seed}}nd seed)
+		{% elif seed == '3' %}
+		({{seed}}rd seed)
+		{% else %}
+		({{seed}}th seed)
+		{% endif %}
+	</b><br>
 	<b>Conference: West</b>
 	<div class = "teampic">
 		<img src = "https://img.bleacherreport.net/img/images/photos/003/834/460/hi-res-8592202cc23fa8cb0f7570712e35dadb_crop_north.jpg?h=533&w=800&q=70&crop_x=center&crop_y=top" alt = "lakers_team" width = "540" height = "360">

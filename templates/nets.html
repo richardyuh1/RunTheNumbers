@@ -6,7 +6,18 @@
 	<b>Coach: Kenny Atkinson</b><br>
 	<b>GM: Sean Marks</b><br> 
 	<b>Arena: Barclays Center</b><br>
-	<b>Record: 4-5 (7th seed)</b><br>
+	<b>
+		Record: {{wins}}-{{losses}}
+		{% if seed == '1' %}
+		({{seed}}st seed)
+		{% elif seed == '2' %}
+		({{seed}}nd seed)
+		{% elif seed == '3' %}
+		({{seed}}rd seed)
+		{% else %}
+		({{seed}}th seed)
+		{% endif %}
+	</b><br>
 	<b>Conference: East</b>
 	<div class = "teampic">
 		<img src = "https://i.ytimg.com/vi/AB45U1fPULg/maxresdefault.jpg" alt = "nets_team" width = "590" height = "350">

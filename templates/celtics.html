@@ -6,7 +6,18 @@
 	<b>Coach: Brad Stevens</b><br>
 	<b>GM: Danny Ainge</b><br> 
 	<b>Arena: TD Garden</b><br>
-	<b>Record: 8-1 (1st seed)</b><br>
+	<b>
+		Record: {{wins}}-{{losses}}
+		{% if seed == '1' %}
+		({{seed}}st seed)
+		{% elif seed == '2' %}
+		({{seed}}nd seed)
+		{% elif seed == '3' %}
+		({{seed}}rd seed)
+		{% else %}
+		({{seed}}th seed)
+		{% endif %}
+	</b><br>
 	<b>Conference: East</b>
 	<div class = "teampic">
 		<img src = "https://i.ytimg.com/vi/59ljtKHRp0M/maxresdefault.jpg" alt = "magic_team" width = "510" height = "320">
