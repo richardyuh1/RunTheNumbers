@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+	<br>
+	<h1>Cleveland Cavaliers</h1>
+	<b>Coach: John Beilein</b><br>
+	<b>GM: Koby Altman</b><br> 
+	<b>Arena: Rocket Mortgage FieldHouse</b><br>
+	<b>
+		Record: {{wins}}-{{losses}}
+		{% if seed == '1' %}
+		({{seed}}st seed)
+		{% elif seed == '2' %}
+		({{seed}}nd seed)
+		{% elif seed == '3' %}
+		({{seed}}rd seed)
+		{% else %}
+		({{seed}}th seed)
+		{% endif %}
+	</b><br>
+	<b>Conference: East</b>
+	<div class = "teampic">
+		<img src = "https://www.nba.com/cavaliers/sites/cavaliers/files/2_843.jpg" alt = "cavaliers_team" width = "580" height = "400">
+		<img src = "http://thisisbelieveland.com/wp-content/uploads/2019/03/248d3e257bcb6a80c5062e152b8ed1dd.png" alt = "cavaliers_logo" hspace = "20" width = "300" height = "430">
+	</div><br> 
+	<h2>Team Roster</h2> 
+		<style type="text/css">
+		.tg  {border-collapse:collapse;border-spacing:0;}
+		.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+		.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+		.tg .tg-axmw{font-weight:bold;font-size:18px;text-align:center;vertical-align:middle}
+		.tg .tg-r28n{font-size:18px;text-align:center;vertical-align:middle}
+		</style>
+		<table class="tg">
+		  <tr>
+		    <th class="tg-axmw">Name</th>
+	    	<th class="tg-axmw">Pos</th>
+	    	<th class="tg-axmw">Age</th>
+	    	<th class="tg-axmw">Height</th>
+	    	<th class="tg-axmw">Weight</th>
+	    	<th class="tg-axmw">Season</th>
+	    	<th class="tg-axmw">College</th>
+		  </tr>
+		  {% for name in player_name %}
+	  	  <tr>
+		  	<td class="tg-r28n">{{name}}</td>
+		  	<td class="tg-r28n">{{player_pos[loop.index0]}}</td>
+		  	<td class="tg-r28n">{{player_age[loop.index0]}}</td>
+		  	<td class="tg-r28n">{{player_height[loop.index0]}}</td>
+		  	<td class="tg-r28n">{{player_weight[loop.index0]}}</td>
+		  	<td class="tg-r28n">{{player_season[loop.index0]}}</td>
+		  	<td class="tg-r28n">{{player_college[loop.index0]}}</td>
+	      </tr>
+	      {% endfor %}
+		</table>
+		<br><br><br><br>
+	
+
+
+{% endblock %}

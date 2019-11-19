@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+	<br>
+	<h1>Washington Wizards</h1>
+	<b>Coach: Scott Brooks</b><br>
+	<b>GM: Tommy Sheppard</b><br> 
+	<b>Arena: Capital One Arena</b><br>
+	<b>
+		Record: {{wins}}-{{losses}}
+		{% if seed == '1' %}
+		({{seed}}st seed)
+		{% elif seed == '2' %}
+		({{seed}}nd seed)
+		{% elif seed == '3' %}
+		({{seed}}rd seed)
+		{% else %}
+		({{seed}}th seed)
+		{% endif %}
+	</b><br>
+	<b>Conference: East</b>
+	<div class = "teampic">
+		<img src = "https://cdn.vox-cdn.com/thumbor/99Cg9VvVRBiT-c7ULK8moGcC-Zk=/0x0:4999x3333/1200x800/filters:focal(1990x367:2788x1165)/cdn.vox-cdn.com/uploads/chorus_image/image/65362122/1172605095.jpg.0.jpg" alt = "wizards_team" width = "650" height = "430">
+		<img src = "https://i.pinimg.com/originals/c4/86/9d/c4869dbdda3dd3abdf978e245a2ccb82.jpg" alt = "wizards_logo" width = "380" height = "380">
+	</div><br> 
+	<h2>Team Roster</h2> 
+		<style type="text/css">
+		.tg  {border-collapse:collapse;border-spacing:0;}
+		.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+		.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+		.tg .tg-axmw{font-weight:bold;font-size:18px;text-align:center;vertical-align:middle}
+		.tg .tg-r28n{font-size:18px;text-align:center;vertical-align:middle}
+		</style>
+		<table class="tg">
+		  <tr>
+		    <th class="tg-axmw">Name</th>
+	    	<th class="tg-axmw">Pos</th>
+	    	<th class="tg-axmw">Age</th>
+	    	<th class="tg-axmw">Height</th>
+	    	<th class="tg-axmw">Weight</th>
+	    	<th class="tg-axmw">Season</th>
+	    	<th class="tg-axmw">College</th>
+		  </tr>
+		  {% for name in player_name %}
+	  	  <tr>
+		  	<td class="tg-r28n">{{name}}</td>
+		  	<td class="tg-r28n">{{player_pos[loop.index0]}}</td>
+		  	<td class="tg-r28n">{{player_age[loop.index0]}}</td>
+		  	<td class="tg-r28n">{{player_height[loop.index0]}}</td>
+		  	<td class="tg-r28n">{{player_weight[loop.index0]}}</td>
+		  	<td class="tg-r28n">{{player_season[loop.index0]}}</td>
+		  	<td class="tg-r28n">{{player_college[loop.index0]}}</td>
+	      </tr>
+	      {% endfor %}
+		</table>
+		<br><br><br><br>
+	
+
+
+{% endblock %}
