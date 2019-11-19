@@ -1090,7 +1090,7 @@ def bucks_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-
+	player_name[4] = 'Eryan Ilyasova'
 	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
 	return final 
 
