@@ -353,7 +353,7 @@ def extract_roster_season(th):
 	index2 = th[index:].find("</td>")
 	str_exp = th[index+12:index+index2]
 	if str_exp == 'R':
-		return 1 
+		return '1' 
 	exp = int(th[index+12:index+index2])
 	return str(exp+1)
 
