@@ -316,6 +316,437 @@ def nfl_standings():
 	
 	return team_list
 
+##############   NBA Team Roster Automated    ################
+def calculateAge(birthDate): 
+    today = date.today() 
+    age = today.year - birthDate.year - ((today.month, today.day) < (birthDate.month, birthDate.day)) 
+  
+    return age 
+
+def extract_roster_name(th):
+	th = str(th)
+	index = th.find("html")
+	index2 = th[index:].find("</a>")
+	return th[index+6:index+index2]
+
+def extract_roster_position(th):
+	th = str(th)
+	index = th.find("pos")
+	index2 = th[index:].find("</td>")
+	return th[index+5:index+index2]
+
+def extract_roster_height(th):
+	th = str(th)
+	index = th.find("height")
+	index2 = th[index:].find("</td>")
+	return th[index+8:index+index2]
+
+def extract_roster_weight(th):
+	th = str(th)
+	index = th.find("weight")
+	index2 = th[index:].find("</td>")
+	return th[index+8:index+index2]
+
+def extract_roster_season(th):
+	th = str(th)
+	index = th.find("experience")
+	index2 = th[index:].find("</td>")
+	str_exp = th[index+12:index+index2]
+	if str_exp == 'R':
+		return 1 
+	exp = int(th[index+12:index+index2])
+	return str(exp+1)
+
+def extract_roster_college(th):
+	th = str(th)
+	college_index = th.find("colleges")
+	if college_index == -1:
+		return '' 
+	index = th[college_index:].find(">")
+	index2 = th[college_index+index+1:].find("<")
+	college_name_raw = th[college_index+index+1:college_index+index+1+index2]
+	#Remove &/amp;
+	college_name_list = college_name_raw.split(" ")
+	for i,name in enumerate(college_name_list):
+		if 'amp;' in name:
+			index = name.find('amp;')
+			college_name_list[i] = name[0:index] + name[index+4:]
+	return " ".join(college_name_list)
+
+#year, month, day in int form 
+def extract_roster_age(th):
+	months = {'January':1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6, 'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12}
+
+	th = str(th)
+	age_index = th.find("date")
+	index2 = th[age_index:].find("</td")
+	birthdatestr = th[age_index+6:age_index+index2]
+	birthdaysplit = birthdatestr.split(' ')
+	month = months[birthdaysplit[0]]
+	day = int(birthdaysplit[1][0:-1])
+	year = int(birthdaysplit[2])
+	return calculateAge(date(year, month, day))
+
+def lakers_roster_automate():
+	year = 2020
+
+	#URL page we will be scraping 
+
+	url = "https://www.basketball-reference.com/teams/LAL/{}.html".format(year)
+
+	#HTML from given URL 
+	html = urlopen(url) 
+
+	soup = BeautifulSoup(html, features='html.parser') 
+
+	#use findAll() to get column headers
+	th_all = soup.findAll('tr', limit=19) 
+	th_all = th_all[1:]
+
+	player_name = [] 
+	player_pos = [] 
+	player_height = []
+	player_weight = [] 
+	player_season = [] 
+	player_college = []
+	player_age = [] 
+
+	for th in th_all:
+		player_name.append(extract_roster_name(th))
+		player_pos.append(extract_roster_position(th))
+		player_height.append(extract_roster_height(th))
+		player_weight.append(extract_roster_weight(th))
+		player_season.append(extract_roster_season(th))
+		player_college.append(extract_roster_college(th))
+		player_age.append(extract_roster_age(th))
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	return final 
+
+def rockets_roster_automate():
+	year = 2020
+
+	#URL page we will be scraping 
+
+	url = "https://www.basketball-reference.com/teams/HOU/{}.html".format(year)
+
+	#HTML from given URL 
+	html = urlopen(url) 
+
+	soup = BeautifulSoup(html, features='html.parser') 
+
+	#use findAll() to get column headers
+	th_all = soup.findAll('tr', limit=19) 
+	th_all = th_all[1:]
+
+	player_name = [] 
+	player_pos = [] 
+	player_height = []
+	player_weight = [] 
+	player_season = [] 
+	player_college = []
+	player_age = [] 
+
+	for th in th_all:
+		player_name.append(extract_roster_name(th))
+		player_pos.append(extract_roster_position(th))
+		player_height.append(extract_roster_height(th))
+		player_weight.append(extract_roster_weight(th))
+		player_season.append(extract_roster_season(th))
+		player_college.append(extract_roster_college(th))
+		player_age.append(extract_roster_age(th))
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	return final 
+
+def celtics_roster_automate():
+	year = 2020
+
+	#URL page we will be scraping 
+
+	url = "https://www.basketball-reference.com/teams/BOS/{}.html".format(year)
+
+	#HTML from given URL 
+	html = urlopen(url) 
+
+	soup = BeautifulSoup(html, features='html.parser') 
+
+	#use findAll() to get column headers
+	th_all = soup.findAll('tr', limit=19) 
+	th_all = th_all[1:]
+
+	player_name = [] 
+	player_pos = [] 
+	player_height = []
+	player_weight = [] 
+	player_season = [] 
+	player_college = []
+	player_age = [] 
+
+	for th in th_all:
+		player_name.append(extract_roster_name(th))
+		player_pos.append(extract_roster_position(th))
+		player_height.append(extract_roster_height(th))
+		player_weight.append(extract_roster_weight(th))
+		player_season.append(extract_roster_season(th))
+		player_college.append(extract_roster_college(th))
+		player_age.append(extract_roster_age(th))
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	return final 
+
+def magic_roster_automate():
+	year = 2020
+
+	#URL page we will be scraping 
+
+	url = "https://www.basketball-reference.com/teams/ORL/{}.html".format(year)
+
+	#HTML from given URL 
+	html = urlopen(url) 
+
+	soup = BeautifulSoup(html, features='html.parser') 
+
+	#use findAll() to get column headers
+	th_all = soup.findAll('tr', limit=19) 
+	th_all = th_all[1:]
+
+	player_name = [] 
+	player_pos = [] 
+	player_height = []
+	player_weight = [] 
+	player_season = [] 
+	player_college = []
+	player_age = [] 
+
+	for th in th_all:
+		player_name.append(extract_roster_name(th))
+		player_pos.append(extract_roster_position(th))
+		player_height.append(extract_roster_height(th))
+		player_weight.append(extract_roster_weight(th))
+		player_season.append(extract_roster_season(th))
+		player_college.append(extract_roster_college(th))
+		player_age.append(extract_roster_age(th))
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	return final 
+
+def nets_roster_automate():
+	year = 2020
+
+	#URL page we will be scraping 
+
+	url = "https://www.basketball-reference.com/teams/BRK/{}.html".format(year)
+
+	#HTML from given URL 
+	html = urlopen(url) 
+
+	soup = BeautifulSoup(html, features='html.parser') 
+
+	#use findAll() to get column headers
+	th_all = soup.findAll('tr', limit=19) 
+	th_all = th_all[1:]
+
+	player_name = [] 
+	player_pos = [] 
+	player_height = []
+	player_weight = [] 
+	player_season = [] 
+	player_college = []
+	player_age = [] 
+
+	for th in th_all:
+		player_name.append(extract_roster_name(th))
+		player_pos.append(extract_roster_position(th))
+		player_height.append(extract_roster_height(th))
+		player_weight.append(extract_roster_weight(th))
+		player_season.append(extract_roster_season(th))
+		player_college.append(extract_roster_college(th))
+		player_age.append(extract_roster_age(th))
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	return final 
+
+def pistons_roster_automate():
+	year = 2020
+
+	#URL page we will be scraping 
+
+	url = "https://www.basketball-reference.com/teams/DET/{}.html".format(year)
+
+	#HTML from given URL 
+	html = urlopen(url) 
+
+	soup = BeautifulSoup(html, features='html.parser') 
+
+	#use findAll() to get column headers
+	th_all = soup.findAll('tr', limit=19) 
+	th_all = th_all[1:]
+
+	player_name = [] 
+	player_pos = [] 
+	player_height = []
+	player_weight = [] 
+	player_season = [] 
+	player_college = []
+	player_age = [] 
+
+	for th in th_all:
+		player_name.append(extract_roster_name(th))
+		player_pos.append(extract_roster_position(th))
+		player_height.append(extract_roster_height(th))
+		player_weight.append(extract_roster_weight(th))
+		player_season.append(extract_roster_season(th))
+		player_college.append(extract_roster_college(th))
+		player_age.append(extract_roster_age(th))
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	return final 
+
+def warriors_roster_automate():
+	year = 2020
+
+	#URL page we will be scraping 
+
+	url = "https://www.basketball-reference.com/teams/GSW/{}.html".format(year)
+
+	#HTML from given URL 
+	html = urlopen(url) 
+
+	soup = BeautifulSoup(html, features='html.parser') 
+
+	#use findAll() to get column headers
+	th_all = soup.findAll('tr', limit=19) 
+	th_all = th_all[1:]
+
+	player_name = [] 
+	player_pos = [] 
+	player_height = []
+	player_weight = [] 
+	player_season = [] 
+	player_college = []
+	player_age = [] 
+
+	for th in th_all:
+		player_name.append(extract_roster_name(th))
+		player_pos.append(extract_roster_position(th))
+		player_height.append(extract_roster_height(th))
+		player_weight.append(extract_roster_weight(th))
+		player_season.append(extract_roster_season(th))
+		player_college.append(extract_roster_college(th))
+		player_age.append(extract_roster_age(th))
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	return final 
+
+def knicks_roster_automate():
+	year = 2020
+
+	#URL page we will be scraping 
+
+	url = "https://www.basketball-reference.com/teams/NYK/{}.html".format(year)
+
+	#HTML from given URL 
+	html = urlopen(url) 
+
+	soup = BeautifulSoup(html, features='html.parser') 
+
+	#use findAll() to get column headers
+	th_all = soup.findAll('tr', limit=19) 
+	th_all = th_all[1:]
+
+	player_name = [] 
+	player_pos = [] 
+	player_height = []
+	player_weight = [] 
+	player_season = [] 
+	player_college = []
+	player_age = [] 
+
+	for th in th_all:
+		player_name.append(extract_roster_name(th))
+		player_pos.append(extract_roster_position(th))
+		player_height.append(extract_roster_height(th))
+		player_weight.append(extract_roster_weight(th))
+		player_season.append(extract_roster_season(th))
+		player_college.append(extract_roster_college(th))
+		player_age.append(extract_roster_age(th))
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	return final 
+
+def clippers_roster_automate():
+	year = 2020
+
+	#URL page we will be scraping 
+
+	url = "https://www.basketball-reference.com/teams/LAC/{}.html".format(year)
+
+	#HTML from given URL 
+	html = urlopen(url) 
+
+	soup = BeautifulSoup(html, features='html.parser') 
+
+	#use findAll() to get column headers
+	th_all = soup.findAll('tr', limit=19) 
+	th_all = th_all[1:]
+
+	player_name = [] 
+	player_pos = [] 
+	player_height = []
+	player_weight = [] 
+	player_season = [] 
+	player_college = []
+	player_age = [] 
+
+	for th in th_all:
+		player_name.append(extract_roster_name(th))
+		player_pos.append(extract_roster_position(th))
+		player_height.append(extract_roster_height(th))
+		player_weight.append(extract_roster_weight(th))
+		player_season.append(extract_roster_season(th))
+		player_college.append(extract_roster_college(th))
+		player_age.append(extract_roster_age(th))
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	return final 
+
+def grizzlies_roster_automate():
+	year = 2020
+
+	#URL page we will be scraping 
+
+	url = "https://www.basketball-reference.com/teams/MEM/{}.html".format(year)
+
+	#HTML from given URL 
+	html = urlopen(url) 
+
+	soup = BeautifulSoup(html, features='html.parser') 
+
+	#use findAll() to get column headers
+	th_all = soup.findAll('tr', limit=19) 
+	th_all = th_all[1:]
+
+	player_name = [] 
+	player_pos = [] 
+	player_height = []
+	player_weight = [] 
+	player_season = [] 
+	player_college = []
+	player_age = [] 
+
+	for th in th_all:
+		player_name.append(extract_roster_name(th))
+		player_pos.append(extract_roster_position(th))
+		player_height.append(extract_roster_height(th))
+		player_weight.append(extract_roster_weight(th))
+		player_season.append(extract_roster_season(th))
+		player_college.append(extract_roster_college(th))
+		player_age.append(extract_roster_age(th))
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	return final 
+
 #Index
 @app.route('/')
 def index():
@@ -340,10 +771,16 @@ def rockets():
 	west_losses = standings[5] 
 	west_seed = standings[8]
 	team_index = 0 
+
+	roster = rockets_roster_automate()
+
 	for index in range(len(west_standings)):
 		if 'rockets' in west_standings[index].lower():
 			team_index = index 
-	return render_template('rockets.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index])
+
+	return render_template('rockets.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
+		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
+		player_college = roster[5], player_age = roster[6])
 
 #Lakers Page
 @app.route('/lakers')
@@ -354,10 +791,17 @@ def lakers():
 	west_losses = standings[5] 
 	west_seed = standings[8]
 	team_index = 0 
+
+	roster = lakers_roster_automate()
+
+
 	for index in range(len(west_standings)):
 		if 'lakers' in west_standings[index].lower():
 			team_index = index 
-	return render_template('lakers.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index])
+
+	return render_template('lakers.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
+		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
+		player_college = roster[5], player_age = roster[6])
 
 #Nuggets Page
 @app.route('/nuggets')
@@ -377,7 +821,22 @@ def suns():
 #Clippers Page
 @app.route('/clippers')
 def clippers():
-	return redirect("https://en.wikipedia.org/wiki/Los_Angeles_Clippers")
+	standings = nba_standings() 
+	west_standings = standings[3]
+	west_wins = standings[4] 
+	west_losses = standings[5] 
+	west_seed = standings[8]
+	team_index = 0 
+
+	roster = clippers_roster_automate()
+
+	for index in range(len(west_standings)):
+		if 'clippers' in west_standings[index].lower():
+			team_index = index 
+
+	return render_template('clippers.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
+		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
+		player_college = roster[5], player_age = roster[6])
 
 #Mavericks Page
 @app.route('/mavericks')
@@ -392,7 +851,22 @@ def timberwolves():
 #Grizzlies Page
 @app.route('/grizzlies')
 def grizzlies():
-	return redirect("https://en.wikipedia.org/wiki/Memphis_Grizzlies")
+	standings = nba_standings() 
+	west_standings = standings[3]
+	west_wins = standings[4] 
+	west_losses = standings[5] 
+	west_seed = standings[8]
+	team_index = 0 
+
+	roster = grizzlies_roster_automate()
+
+	for index in range(len(west_standings)):
+		if 'grizzlies' in west_standings[index].lower():
+			team_index = index 
+
+	return render_template('grizzlies.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
+		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
+		player_college = roster[5], player_age = roster[6])
 
 #Thunder Page
 @app.route('/thunder')
@@ -422,7 +896,22 @@ def pelicans():
 #Warriors Page
 @app.route('/warriors')
 def warriors():
-	return redirect("https://en.wikipedia.org/wiki/Golden_State_Warriors")
+	standings = nba_standings() 
+	west_standings = standings[3]
+	west_wins = standings[4] 
+	west_losses = standings[5] 
+	west_seed = standings[8]
+	team_index = 0 
+
+	roster = warriors_roster_automate()
+
+	for index in range(len(west_standings)):
+		if 'warriors' in west_standings[index].lower():
+			team_index = index 
+
+	return render_template('warriors.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
+		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
+		player_college = roster[5], player_age = roster[6])
 
 #Heat Page
 @app.route('/heat')
@@ -477,7 +966,19 @@ def wizards():
 #Knicks Page
 @app.route('/knicks')
 def knicks():
-	return redirect("https://en.wikipedia.org/wiki/New_York_Knicks")
+	standings = nba_standings() 
+	east_standings = standings[0]
+	east_wins = standings[1] 
+	east_losses = standings[2] 
+	east_seed = standings[7]
+	team_index = 0 
+	roster = knicks_roster_automate()
+	for index in range(len(east_standings)):
+		if 'knicks' in east_standings[index].lower():
+			team_index = index 
+	return render_template('knicks.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
+		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
+		player_college = roster[5], player_age = roster[6])
 
 #Nets Page
 @app.route('/nets')
@@ -488,10 +989,13 @@ def nets():
 	east_losses = standings[2] 
 	east_seed = standings[7]
 	team_index = 0 
+	roster = nets_roster_automate()
 	for index in range(len(east_standings)):
 		if 'nets' in east_standings[index].lower():
 			team_index = index 
-	return render_template('nets.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index])
+	return render_template('nets.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
+		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
+		player_college = roster[5], player_age = roster[6])
 
 #Pistons Page
 @app.route('/pistons')
@@ -502,10 +1006,13 @@ def pistons():
 	east_losses = standings[2] 
 	east_seed = standings[7]
 	team_index = 0 
+	roster = pistons_roster_automate()
 	for index in range(len(east_standings)):
 		if 'pistons' in east_standings[index].lower():
 			team_index = index 
-	return render_template('pistons.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index])
+	return render_template('pistons.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
+		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
+		player_college = roster[5], player_age = roster[6])
 
 #Celtics Page
 @app.route('/celtics')
@@ -516,10 +1023,13 @@ def celtics():
 	east_losses = standings[2] 
 	east_seed = standings[7]
 	celtics_index = 0 
+	roster = celtics_roster_automate()
 	for index in range(len(east_standings)):
 		if 'celtics' in east_standings[index].lower():
 			celtics_index = index 
-	return render_template('celtics.html', wins = east_wins[celtics_index], losses = east_losses[celtics_index], seed = east_seed[celtics_index])
+	return render_template('celtics.html', wins = east_wins[celtics_index], losses = east_losses[celtics_index], seed = east_seed[celtics_index],
+		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
+		player_college = roster[5], player_age = roster[6])
 
 #Magic Page
 @app.route('/magic')
@@ -530,10 +1040,13 @@ def magic():
 	east_losses = standings[2] 
 	east_seed = standings[7]
 	magic_index = 0 
+	roster = magic_roster_automate()
 	for index in range(len(east_standings)):
 		if 'magic' in east_standings[index].lower():
 			magic_index = index 
-	return render_template('magic.html', wins = east_wins[magic_index], losses = east_losses[magic_index], seed = east_seed[magic_index])
+	return render_template('magic.html', wins = east_wins[magic_index], losses = east_losses[magic_index], seed = east_seed[magic_index], 
+		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
+		player_college = roster[5], player_age = roster[6])
 
 
 #Patriots Page

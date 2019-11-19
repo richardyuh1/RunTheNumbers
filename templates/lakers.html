@@ -41,159 +41,17 @@
 	    <th class="tg-axmw">Season</th>
 	    <th class="tg-axmw">College</th>
 	  </tr>
+	  {% for name in player_name %}
 	  <tr>
-	    <td class="tg-r28n">Anthony Davis</td>
-	    <td class="tg-r28n">PF</td>
-	    <td class="tg-r28n">26</td>
-	    <td class="tg-r28n">6-10</td>
-	    <td class="tg-r28n">253</td>
-	    <td class="tg-r28n">7</td>
-	    <td class="tg-r28n">Kentucky</td>
+	  	<td class="tg-r28n">{{name}}</td>
+	  	<td class="tg-r28n">{{player_pos[loop.index0]}}</td>
+	  	<td class="tg-r28n">{{player_age[loop.index0]}}</td>
+	  	<td class="tg-r28n">{{player_height[loop.index0]}}</td>
+	  	<td class="tg-r28n">{{player_weight[loop.index0]}}</td>
+	  	<td class="tg-r28n">{{player_season[loop.index0]}}</td>
+	  	<td class="tg-r28n">{{player_college[loop.index0]}}</td>
 	  </tr>
-	  <tr>
-	    <td class="tg-r28n">Kyle Kuzma </td>
-	    <td class="tg-r28n">PF</td>
-	    <td class="tg-r28n">24</td>
-	    <td class="tg-r28n">6-8</td>
-	    <td class="tg-r28n">221</td>
-	    <td class="tg-r28n">2</td>
-	    <td class="tg-r28n">Utah</td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">LeBron James</td>
-	    <td class="tg-r28n">SF</td>
-	    <td class="tg-r28n">34</td>
-	    <td class="tg-r28n">6-9</td>
-	    <td class="tg-r28n">250</td>
-	    <td class="tg-r28n">16</td>
-	    <td class="tg-r28n"></td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">Talen Horton-Tucker </td>
-	    <td class="tg-r28n">G</td>
-	    <td class="tg-r28n">19</td>
-	    <td class="tg-r28n">6-4</td>
-	    <td class="tg-r28n">234</td>
-	    <td class="tg-r28n">R</td>
-	    <td class="tg-r28n">Iowa State</td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">Danny Green</td>
-	    <td class="tg-r28n">SG</td>
-	    <td class="tg-r28n">32</td>
-	    <td class="tg-r28n">6-6</td>
-	    <td class="tg-r28n">215</td>
-	    <td class="tg-r28n">10</td>
-	    <td class="tg-r28n">UNC</td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">Demarcus Cousins</td>
-	    <td class="tg-r28n">C-F</td>
-	    <td class="tg-r28n">29</td>
-	    <td class="tg-r28n">6-10</td>
-	    <td class="tg-r28n">270</td>
-	    <td class="tg-r28n">9</td>
-	    <td class="tg-r28n">Kentucky</td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">Kentavious Caldwell-Pope</td>
-	    <td class="tg-r28n">SG</td>
-	    <td class="tg-r28n">26</td>
-	    <td class="tg-r28n">6-5</td>
-	    <td class="tg-r28n">204</td>
-	    <td class="tg-r28n">6</td>
-	    <td class="tg-r28n">Georgia</td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">JaVale McGee</td>
-	    <td class="tg-r28n">C</td>
-	    <td class="tg-r28n">31</td>
-	    <td class="tg-r28n">7-0</td>
-	    <td class="tg-r28n">270</td>
-	    <td class="tg-r28n">11</td>
-	    <td class="tg-r28n">Nevada</td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">Quinn Cook</td>
-	    <td class="tg-r28n">PG</td>
-	    <td class="tg-r28n">26</td>
-	    <td class="tg-r28n">6-1</td>
-	    <td class="tg-r28n">180</td>
-	    <td class="tg-r28n">3</td>
-	    <td class="tg-r28n">Duke</td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">Jared Dudley</td>
-	    <td class="tg-r28n">SF</td>
-	    <td class="tg-r28n">34</td>
-	    <td class="tg-r28n">6-6</td>
-	    <td class="tg-r28n">237</td>
-	    <td class="tg-r28n">12</td>
-	    <td class="tg-r28n">Boston College</td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">Troy Daniels </td>
-	    <td class="tg-r28n">SG</td>
-	    <td class="tg-r28n">28</td>
-	    <td class="tg-r28n">6-4</td>
-	    <td class="tg-r28n">200</td>
-	    <td class="tg-r28n">6</td>
-	    <td class="tg-r28n">Virginia Commonwealth</td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">Alex Caruso </td>
-	    <td class="tg-r28n">SG</td>
-	    <td class="tg-r28n">25</td>
-	    <td class="tg-r28n">6-5</td>
-	    <td class="tg-r28n">186</td>
-	    <td class="tg-r28n">2</td>
-	    <td class="tg-r28n">Texas A&amp;M</td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">Rajon Rondo </td>
-	    <td class="tg-r28n">G</td>
-	    <td class="tg-r28n">33</td>
-	    <td class="tg-r28n">6-1</td>
-	    <td class="tg-r28n">180</td>
-	    <td class="tg-r28n">13</td>
-	    <td class="tg-r28n">Kentucky</td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">Avery Bradley</td>
-	    <td class="tg-r28n">SG</td>
-	    <td class="tg-r28n">29</td>
-	    <td class="tg-r28n">6-3</td>
-	    <td class="tg-r28n">180</td>
-	    <td class="tg-r28n">9</td>
-	    <td class="tg-r28n">Texas</td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">Kostas Antetokounmpo</td>
-	    <td class="tg-r28n">PF</td>
-	    <td class="tg-r28n">22</td>
-	    <td class="tg-r28n">6-10</td>
-	    <td class="tg-r28n">200</td>
-	    <td class="tg-r28n">1</td>
-	    <td class="tg-r28n">Dayton</td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">Zach Norvell</td>
-	    <td class="tg-r28n">G-F</td>
-	    <td class="tg-r28n">22</td>
-	    <td class="tg-r28n">6-5</td>
-	    <td class="tg-r28n">205</td>
-	    <td class="tg-r28n">R</td>
-	    <td class="tg-r28n">Gonzaga</td>
-	  </tr>
-	  <tr>
-	    <td class="tg-r28n">Dwight Howard </td>
-	    <td class="tg-r28n">C-F</td>
-	    <td class="tg-r28n">34</td>
-	    <td class="tg-r28n">6-10</td>
-	    <td class="tg-r28n">265</td>
-	    <td class="tg-r28n">15</td>
-	    <td class="tg-r28n"></td>
-	  </tr>
+	  {% endfor %}
 	</table>
 	<br><br><br><br>
 

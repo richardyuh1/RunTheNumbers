@@ -2,10 +2,10 @@
 
 {% block body %}
 	<br>
-	<h1>Boston Celtics</h1>
-	<b>Coach: Brad Stevens</b><br>
-	<b>GM: Danny Ainge</b><br> 
-	<b>Arena: TD Garden</b><br>
+	<h1>Memphis Grizzlies</h1>
+	<b>Coach: Taylor Jenkins</b><br>
+	<b>GM: Chris Wallace</b><br> 
+	<b>Arena: FedEx Forum</b><br>
 	<b>
 		Record: {{wins}}-{{losses}}
 		{% if seed == '1' %}
@@ -18,10 +18,10 @@
 		({{seed}}th seed)
 		{% endif %}
 	</b><br>
-	<b>Conference: East</b>
+	<b>Conference: West</b>
 	<div class = "teampic">
-		<img src = "https://i.ytimg.com/vi/59ljtKHRp0M/maxresdefault.jpg" alt = "magic_team" width = "510" height = "320">
-		<img src = "https://cdn11.bigcommerce.com/s-0f122/images/stencil/1280x1280/products/399/18373/1__79929.1463743356.jpg?c=2&imbypass=on" width = "340" height = "350" hspace = "20">
+		<img src = "https://cdn.vox-cdn.com/thumbor/WjSm1csreJb5PNcPubW-F96BXOE=/0x0:1677x2117/1200x0/filters:focal(0x0:1677x2117):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19248097/usa_today_13444821.jpg" alt = "grizzlies_team" width = "435" height = "580">
+		<img src = "https://a.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fnba%2F500%2Fmem.png" alt = "grizzlies_logo" width = "390" height = "420" hspace = "30">
 	</div><br> 
 	<h2>Team Roster</h2> 
 		<style type="text/css">
@@ -54,4 +54,5 @@
 		  {% endfor %}
 		</table>
 	<br><br><br><br>
+
 {% endblock %}
