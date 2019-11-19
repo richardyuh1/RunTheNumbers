@@ -456,7 +456,7 @@ def rockets_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	player_name[13] = Nene
+	player_name[13] = 'Nene'
 
 	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
 	return final 
@@ -634,8 +634,6 @@ def warriors_roster_automate():
 	player_college = []
 	player_age = [] 
 
-	player_name[5] = 'Alen Smailagic'
-
 	for th in th_all:
 		player_name.append(extract_roster_name(th))
 		player_pos.append(extract_roster_position(th))
@@ -644,6 +642,8 @@ def warriors_roster_automate():
 		player_season.append(extract_roster_season(th))
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
+
+	player_name[5] = 'Alen Smailagic'
 
 	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
 	return final 
