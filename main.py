@@ -456,6 +456,8 @@ def rockets_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
+	player_name[13] = Nene
+
 	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
 	return final 
 
@@ -528,6 +530,7 @@ def magic_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
+	player_name[9] = 'Nikola Vucevic'
 	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
 	return final 
 
@@ -563,6 +566,10 @@ def nets_roster_automate():
 		player_season.append(extract_roster_season(th))
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
+
+	# Fix names 
+	player_name[3] = 'Dzanan Musa'
+	player_name[16] = 'Timothe Luwawu-Cabarrot'
 
 	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
 	return final 
@@ -626,6 +633,8 @@ def warriors_roster_automate():
 	player_season = [] 
 	player_college = []
 	player_age = [] 
+
+	player_name[5] = 'Alen Smailagic'
 
 	for th in th_all:
 		player_name.append(extract_roster_name(th))
@@ -744,6 +753,7 @@ def grizzlies_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
+	player_name[14] = 'Jonas Valanciunas'
 	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
 	return final 
 
