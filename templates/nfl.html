@@ -11,38 +11,66 @@
 	</p>
 	<p>
 		<b>Passes Completed: {{name1}}, {{val1}}</b><br>
-		<b>Team: Los Angeles Chargers</b>
+		<b>Team: <a href={{page1}}>{{team1}}</a></b>
 	</p>
-	<img src = "https://usatchargerswire.files.wordpress.com/2019/09/usatsi_13364084.jpg?w=1000&h=600&crop=1" alt = "Passes Completed" width = "470" height = "310">
+	{% if name1 == 'Philip Rivers' %}
+		<img src = "https://usatchargerswire.files.wordpress.com/2019/09/usatsi_13364084.jpg?w=1000&h=600&crop=1" alt = "Passes Completed" width = "470" height = "310">
+	{% else %}
+		<img src = "https://pmcdeadline2.files.wordpress.com/2017/10/roger-goodel.jpg?w=681&h=383&crop=1" <alt = "Passes Completed" width = "681" height = "383">
+	{% endif %}
 	<br><br>
 	<p>
 		<b>Passing Yds: {{name2}}, {{val2}}</b><br>
-		<b>Team: Los Angeles Chargers</b>
+		<b>Team: <a href={{page2}}>{{team2}}</a></b>
 	</p>
-	<img src = "https://cdn.vox-cdn.com/thumbor/KBbeRhcehDXredPn33-wqYkj978=/0x0:2648x1936/1200x800/filters:focal(844x533:1266x955)/cdn.vox-cdn.com/uploads/chorus_image/image/65461450/usa_today_13513110.0.jpg" alt = "Passing Yds" width = "470" height = "320">
+	{% if name2 == 'Dak Prescott' %}
+		<img src = "https://nbcprofootballtalk.files.wordpress.com/2019/11/gettyimages-1183111970-e1574043972972.jpg?w=560&h=316&crop=1" alt = "Passing Yds" width = "560" height = "316">
+	{% elif name2 == 'Philip Rivers' %}
+		<img src = "https://cdn.vox-cdn.com/thumbor/KBbeRhcehDXredPn33-wqYkj978=/0x0:2648x1936/1200x800/filters:focal(844x533:1266x955)/cdn.vox-cdn.com/uploads/chorus_image/image/65461450/usa_today_13513110.0.jpg" alt = "Passing Yds" width = "470" height = "320">
+	{% else %}
+		<img src = "https://pmcdeadline2.files.wordpress.com/2017/10/roger-goodel.jpg?w=681&h=383&crop=1" <alt = "Passing Yds" width = "681" height = "383">
+	{% endif %}
 	<br><br>
 	<p>
 		<b>Passer Rating: {{name3}}, {{val3}}</b><br>
-		<b>Team: Seattle Seahawks</b>
+		<b>Team: <a href={{page3}}>{{team3}}</a></b>
 	</p>
-	<img src = "https://img.bleacherreport.net/img/images/photos/003/785/042/hi-res-c5e22afdadef738394be5d3f1c1f1520_crop_north.jpg?h=533&w=800&q=70&crop_x=center&crop_y=top" alt = "Passer Rating" width = "480" height = "340">
+	{% if name3 == 'Russell Wilson' %}
+		<img src = "https://img.bleacherreport.net/img/images/photos/003/785/042/hi-res-c5e22afdadef738394be5d3f1c1f1520_crop_north.jpg?h=533&w=800&q=70&crop_x=center&crop_y=top" alt = "Passer Rating" width = "480" height = "340">
+	{% else %}
+		<img src = "https://pmcdeadline2.files.wordpress.com/2017/10/roger-goodel.jpg?w=681&h=383&crop=1" <alt = "Passer Rating" width = "681" height = "383">
+	{% endif %}
 	<br><br>
 	<p>
 		<b>Passing Yds/Game: {{name4}}, {{val4}}</b><br>
-		<b>Team: Kansas City Chiefs</b>
+		<b>Team: <a href={{page4}}>{{team4}}</a></b>
 	</p>
-	<img src = "https://cdn-s3.si.com/styles/marquee_large_2x/s3/images/patrick-mahomes-2019-fantasy-football-profile.jpg?itok=cw-L8m1Z" alt = "Passing Yds/Game" width = "600" height = "340"> 
+	{% if name4 == 'Dak Prescott' %}
+		<img src = "https://cdn.vox-cdn.com/thumbor/zONKAtjoA5CWHXaebFnCWqxgLPs=/0x0:4134x2959/1200x800/filters:focal(1767x558:2427x1218)/cdn.vox-cdn.com/uploads/chorus_image/image/64077940/usa_today_11817826.0.jpg" alt = "Passing Yds/Game" width = "600" height = "400">
+	{% elif name4 == 'Patrick Mahomes' %}
+		<img src = "https://cdn-s3.si.com/styles/marquee_large_2x/s3/images/patrick-mahomes-2019-fantasy-football-profile.jpg?itok=cw-L8m1Z" alt = "Passing Yds/Game" width = "600" height = "340"> 
+	{% else %}
+		<img src = "https://pmcdeadline2.files.wordpress.com/2017/10/roger-goodel.jpg?w=681&h=383&crop=1" <alt = "Passing Yds/Game" width = "681" height = "383">
+	{% endif %}
 	<br><br>
 	<p> 
 		<b>Pass Completion %: {{name5}}, {{val5}}</b><br>
-		<b>Team: New Orleans Saints</b>
+		<b>Team: <a href={{page5}}>{{team5}}</a></b>
 	</p>
-	<img src = "https://www.gannett-cdn.com/-mm-/1acc1cd2fc0736941414b991217cd4d7c783f0a8/c=210-0-2925-2041/local/-/media/2017/11/08/Rochester/Rochester/636457490787683104-USATSI-10398616.jpg?width=540&height=405&fit=crop" alt = "Pass Completion %" width = "450" height = "340">
+	{% if name5 == 'Drew Brees' %}
+		<img src = "https://www.gannett-cdn.com/-mm-/1acc1cd2fc0736941414b991217cd4d7c783f0a8/c=210-0-2925-2041/local/-/media/2017/11/08/Rochester/Rochester/636457490787683104-USATSI-10398616.jpg?width=540&height=405&fit=crop" alt = "Pass Completion %" width = "450" height = "340">
+	{% else %}
+		<img src = "https://pmcdeadline2.files.wordpress.com/2017/10/roger-goodel.jpg?w=681&h=383&crop=1" <alt = "Pass Completion %" width = "681" height = "383">
+	{% endif %}
 	<br><br>
 	<p>
 		<b>Rushing Yds/Att: {{name6}}, {{val6}}</b><br>
-		<b>Team: Baltimore Ravens</b>
+		<b>Team: <a href={{page6}}>{{team6}}</a></b>
 	</p>
-	<img src = "https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Febonybird.com%2Fwp-content%2Fuploads%2Fgetty-images%2F2017%2F07%2F1078758252.jpeg&c=sc&w=736&h=485" alt = "Rushing Yds/Att" width = "520" height = "330">
+	{% if name6 == 'Lamar Jackson' %}
+		<img src = "https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Febonybird.com%2Fwp-content%2Fuploads%2Fgetty-images%2F2017%2F07%2F1078758252.jpeg&c=sc&w=736&h=485" alt = "Rushing Yds/Att" width = "520" height = "330">
+	{% else %}
+		<img src = "https://pmcdeadline2.files.wordpress.com/2017/10/roger-goodel.jpg?w=681&h=383&crop=1" <alt = "Rushing Yds/Att" width = "681" height = "383">
+	{% endif %}
 	<br><br><br><br><br><br>
 {% endblock %}

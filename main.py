@@ -142,6 +142,15 @@ def extract_points(th):
 			final += c
 	return final 
 
+def extract_team(th):
+	html_line = str(th)
+	sub = "teams"
+	sub2 = "</a>"
+	index = html_line.find(sub)
+	index2 = html_line[index:].find(sub2)
+	team = html_line[index+20:index+index2]
+	return team 
+
 def nfl_run(): 
 	#NFL season we will be analyzing
 	year = 2020
@@ -157,18 +166,28 @@ def nfl_run():
 
 	th_all = soup.findAll('div', {'class' : 'tabular_row'}, limit = 39)
 
-	#print(th_all)
+	team_dict = {'LAC': 'Los Angeles Chargers', 'BAL': 'Baltimore Ravens', 'SEA': 'Seattle Seahawks', 'NOR': 'New Orleans Saints', 'DAL': 'Dallas Cowboys', 
+	'NYJ': 'New York Jets', 'TAM': 'Tampa Bay Buccaneers', 'NYG': 'New York Giants', 'DET': 'Detroit Lions', 'CIN': 'Cincinnati Bengals', 'KAN': 'Kansas City Chiefs', 
+	'ATL': 'Atlanta Falcons', 'MIN': 'Minnesota Vikings', 'CAR': 'Carolina Panthers', 'NWE': 'New England Patriots'}
+
+	team_page = {'LAC': '/chargers', 'BAL': '/ravens', 'SEA': '/seahawks', 'NOR': '/saints', 'DAL': '/cowboys', 
+	'NYJ': '/jets', 'TAM': '/buccaneers', 'NYG': '/giants', 'DET': '/lions', 'CIN': '/bengals', 'KAN': '/chiefs', 
+	'ATL': '/falcons', 'MIN': '/vikings', 'CAR': '/panthers', 'NWE': '/patriots'}
 
 	player_list = [] 
 	category_list = [] 
 	points_list = [] 
+	team_list = []
+	team_pages = []
 
 	for th in th_all:
+		if len(extract_name(th)) > 30:
+			continue
 		player_list.append(extract_name(th))
 		category_list.append(extract_category(th))
 		points_list.append(extract_points(th))
-		#print(th) 
-
+		team_list.append(team_dict[extract_team(th)])
+		team_pages.append(team_page[extract_team(th)])
 
 	category_type = ['Passes Completed', 'Passing Yds', 'Passer Rating', 'Passing Yds/Game', 'Pass Completion %', 'Yds/Rushing Att']
 
@@ -177,7 +196,9 @@ def nfl_run():
 	for c in category_type: 
 		str_player = player_list[category_list.index(c)]
 		str_point = points_list[category_list.index(c)]
-		leaders.append([str_player, str_point])
+		str_team = team_list[category_list.index(c)]
+		str_pages = team_pages[category_list.index(c)]
+		leaders.append([str_player, str_point, str_team, str_pages])
 
 	return leaders 
 
@@ -2292,7 +2313,10 @@ def nfl():
 	today = str(date.today())
 	return render_template('nfl.html', date = today, name1 = leader_list[0][0], name2 = leader_list[1][0], name3 = leader_list[2][0], 
 		name4 = leader_list[3][0], name5 = leader_list[4][0], name6 = leader_list[5][0], val1 = leader_list[0][1], val2 = leader_list[1][1], 
-		val3 = leader_list[2][1], val4 = leader_list[3][1], val5 = leader_list[4][1], val6 = leader_list[5][1])
+		val3 = leader_list[2][1], val4 = leader_list[3][1], val5 = leader_list[4][1], val6 = leader_list[5][1], team1 = leader_list[0][2], 
+		team2 = leader_list[1][2], team3 = leader_list[2][2], team4 = leader_list[3][2], team5 = leader_list[4][2], team6 = leader_list[5][2], 
+		page1 = leader_list[0][3], page2 = leader_list[1][3], page3 = leader_list[2][3], page4 = leader_list[3][3], page5 = leader_list[4][3], 
+		page6 = leader_list[5][3])
 
 #Register
 @app.route('/register')
