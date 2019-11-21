@@ -21,9 +21,9 @@
 		</b>
 	</p>
 	{% if name1 == 'James Harden' %} 
-		<img src = "https://specials-images.forbesimg.com/imageserve/5cfea19734a5c4000847fb8a/416x416.jpg?background=000000&cropX1=749&cropX2=4156&cropY1=436&cropY2=3840" alt = "Scoring Leader" width = "400" height = "400">
+		<img src = "{{url_for('static', filename='james_harden.jpg')}}" alt = "Scoring Leader" width = "400" height = "400">
 	{% else %} 
-		<img src = "https://kutv.com/resources/media/70dc4b41-2c80-4615-9ef2-dc356557e9f3-large16x9_joeinglesdonovanmitchelltattootweet1.jpg?1556817070926" alt = "Blocks Leader" width = "550" height = "390">
+		<img src = "{{url_for('static', filename='jingles.png')}}" alt = "Blocks Leader" width = "550" height = "390">
 	{% endif %}
 	<br><br>
 	<p>
@@ -37,9 +37,9 @@
 		</b>
 	</p>
 	{% if name2 == 'Andre Drummond' %} 
-		<img src = "https://fadeawayworld.net/wp-content/uploads/2019/10/NBA-Executive-Says-Andre-Drummond-%E2%80%98Won%E2%80%99t-Have-A-Lot-Of-Options%E2%80%99-In-2020-Free-Agency.jpg" alt = "Rebounds Leader" width = "470" height = "320">
+		<img src = "{{url_for('static', filename='andre_drummond.jpg')}}" alt = "Rebounds Leader" width = "470" height = "320">
 	{% else %} 
-		<img src = "https://kutv.com/resources/media/70dc4b41-2c80-4615-9ef2-dc356557e9f3-large16x9_joeinglesdonovanmitchelltattootweet1.jpg?1556817070926" alt = "Blocks Leader" width = "550" height = "390">
+		<img src = "{{url_for('static', filename='jingles.png')}}" alt = "Blocks Leader" width = "550" height = "390">
 	{% endif %}
 	<br><br>
 	<p>
@@ -53,9 +53,9 @@
 		</b>
 	</p>
 	{% if name3 == 'LeBron James' %} 
-		<img src = "https://a.espncdn.com/media/motion/2019/1105/dm_191105_nba_lakers_lebron_sotfull/dm_191105_nba_lakers_lebron_sotfull.jpg" alt = "Assist Leader">
+		<img src = "{{url_for('static', filename='lebron_james.jpg')}}" alt = "Assist Leader">
 	{% else %} 
-		<img src = "https://kutv.com/resources/media/70dc4b41-2c80-4615-9ef2-dc356557e9f3-large16x9_joeinglesdonovanmitchelltattootweet1.jpg?1556817070926" alt = "Blocks Leader" width = "550" height = "390">
+		<img src = "{{url_for('static', filename='jingles.png')}}" alt = "Blocks Leader" width = "550" height = "390">
 	{% endif %}
 	<br><br>
 	<p>
@@ -69,11 +69,11 @@
 		</b>
 	</p>
 	{% if name4 == 'Anthony Davis' %} 
-		<img src = "https://img.bleacherreport.net/img/images/photos/003/836/676/hi-res-5826e814849501ebfeb97339f4d33ccc_crop_north.jpg?1572977891&w=3072&h=2048" alt = "Blocks Leader" width = "510" height = "340"> 
+		<img src = "{{url_for('static', filename='anthony_davis.jpg')}}" alt = "Blocks Leader" width = "510" height = "340"> 
 	{% elif name4 == 'Jonathan Issac' %}
-		<img src = "https://res-2.cloudinary.com/ybmedia/image/upload/c_crop,h_1062,w_1889,x_0,y_0/c_fill,f_auto,h_495,q_auto,w_880/v1/m/b/9/b9c5a01433506727ea02d07ae139afac2a363fa8/12214405.jpg" alt = "Blocks Leader" width = "510" height = "320">
+		<img src = "{{url_for('static', filename='jonathan_issac.jpg')}}" alt = "Blocks Leader" width = "510" height = "320">
 	{% else %} 
-		<img src = "https://kutv.com/resources/media/70dc4b41-2c80-4615-9ef2-dc356557e9f3-large16x9_joeinglesdonovanmitchelltattootweet1.jpg?1556817070926" alt = "Blocks Leader" width = "550" height = "390">
+		<img src = "{{url_for('static', filename='jingles.png')}}" alt = "Blocks Leader" width = "550" height = "390">
 	{% endif %}
 	<br><br>
 	<p> 
@@ -89,11 +89,11 @@
 		</b>
 	</p>
 	{% if name5 == 'Rodions Kurucs' %} 
-		<img src = "https://cdn.vox-cdn.com/thumbor/gBUmi76kP4Qn2BVUvWZUr0V_Oic=/0x0:3000x2001/1200x800/filters:focal(1290x542:1770x1022)/cdn.vox-cdn.com/uploads/chorus_image/image/65523377/1182512422.jpg.0.jpg" alt = "3P% Leader" width = "470" height = "320"> 
+		<img src = "{{url_for('static', filename='rodions_kurucs.jpg')}}" alt = "3P% Leader" width = "470" height = "320"> 
 	{% elif name5 == 'Damian Jones' %}
-		<img src = "https://www.ajc.com/rf/image_widescreen/Pub/p10/AJC/2019/10/07/Images/1901007JA_07_20191007222449.jpg" alt= "3P% Leader" width = "600" height = "360">
+		<img src = "{{url_for('static', filename='damian_jones.png')}}" width = "530" height = "310">
 	{% else %} 
-		<img src = "https://kutv.com/resources/media/70dc4b41-2c80-4615-9ef2-dc356557e9f3-large16x9_joeinglesdonovanmitchelltattootweet1.jpg?1556817070926" alt = "Blocks Leader" width = "550" height = "390">
+		<img src = "{{url_for('static', filename='jingles.png')}}" alt = "Blocks Leader" width = "550" height = "390">
 	{% endif %}
 	<br><br>
 	<p>
@@ -109,11 +109,11 @@
 		</b>
 	</p>
 	{% if name6 == 'Robert Williams' %} 
-		<img src = "https://nesn.com/wp-content/uploads/2019/11/robert-williams.jpg" alt = "FG% Leader" width = "530" height = "320">
+		<img src = "{{url_for('static', filename='robert_williams.jpg')}}" alt = "FG% Leader" width = "530" height = "320">
 	{% elif name6 == 'Dwight Howard' %}
-		<img src = "https://www.si.com/.image/t_share/MTY3OTI5ODQ0MzU1NTczMTIw/dwight-howard-lakers-hornets.jpg" alt = "FG% Leader" width = "530" height = "320">
+		<img src = "{{url_for('static', filename='dwight_howard.jpg')}}" alt = "FG% Leader" width = "530" height = "320">
 	{% else %} 
-		<img src = "https://kutv.com/resources/media/70dc4b41-2c80-4615-9ef2-dc356557e9f3-large16x9_joeinglesdonovanmitchelltattootweet1.jpg?1556817070926" alt = "Blocks Leader" width = "550" height = "390">
+		<img src = "{{url_for('static', filename='jingles.png')}}" alt = "Blocks Leader" width = "550" height = "390">
 	{% endif %}
 	<br><br><br><br><br><br>
 	

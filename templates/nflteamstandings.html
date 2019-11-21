@@ -7,7 +7,7 @@
 <div class = "row">
 	<div class = "column">
 		<p>
-			<img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/American_Football_Conference_logo.svg/1200px-American_Football_Conference_logo.svg.png" alt = "AFC Logo" width = "130" height = "130" hspace = "0">
+			<img src = "{{url_for('static', filename='afc_logo.png')}}" alt = "AFC Logo" width = "130" height = "130" hspace = "0">
 			<h2>AFC East</h2>   
 			{% for team in afceast %}
 			<a href="/{{team[3]}}">{{team[0]}}:</a> {{team[1]}}-{{team[2]}}<br>
@@ -35,7 +35,7 @@
 	</div>
 	<div class = "column">
 		<p>
-			<img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/National_Football_Conference_logo.svg/1200px-National_Football_Conference_logo.svg.png" alt = "NFC Logo" width = "130" height = "130">
+			<img src = "{{url_for('static', filename='nfc_logo.png')}}" alt = "NFC Logo" width = "130" height = "130">
 			<h2>NFC East</h2>  
 			{% for team in nfceast %}
 			<a href="/{{team[3]}}">{{team[0]}}:</a> {{team[1]}}-{{team[2]}}<br>

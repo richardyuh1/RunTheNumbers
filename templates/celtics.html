@@ -20,8 +20,8 @@ s{% extends 'layout.html' %}
 	</b><br>
 	<b>Conference: East</b>
 	<div class = "teampic">
-		<img src = "https://i.ytimg.com/vi/59ljtKHRp0M/maxresdefault.jpg" alt = "celtics_team" width = "510" height = "320">
-		<img src = "https://cdn11.bigcommerce.com/s-0f122/images/stencil/1280x1280/products/399/18373/1__79929.1463743356.jpg?c=2&imbypass=on" alt = "celtics_logo" width = "320" height = "350" hspace = "20">
+		<img src = "{{url_for('static', filename='celtics_team.jpg')}}" alt = "celtics_team" width = "510" height = "320">
+		<img src = "{{url_for('static', filename='celtics_logo.jpg')}}" alt = "celtics_logo" width = "320" height = "350" hspace = "20">
 	</div><br> 
 	<h2>Team Roster</h2> 
 		<style type="text/css">
