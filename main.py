@@ -12,24 +12,38 @@ except ImportError:
 app = Flask(__name__)
 
 #Filtered by at least 10 MPG and at least 5 games played 
-def category_leader(stats, n, category_index, player_index, mp_index, game_index, headers):
+def category_leader(stats, n, category_index, trey_attempt_index, fg_attempt_index, player_index, mp_index, game_index, headers):
 	category_list = []
 	for i in range(n): 
-		if stats[0:n][i] is None or len(stats[0:n][i]) == 0 or len(stats[0:n][i][category_index]) == 0:
+		if stats[i] is None or len(stats[i]) == 0 or len(stats[i][category_index]) == 0:
 			category_list.append(0.0)
 		else:
-			if stats[0:n][i][mp_index] is not None and stats[0:n][i][mp_index] != '' and float(stats[0:n][i][mp_index]) > 10.0:
-				if stats[0:n][i][game_index] is not None and stats[0:n][i][game_index] != '' and float(stats[0:n][i][game_index]) > 4.0:
-					category_list.append(float(stats[0:n][i][category_index]))
+			if stats[i][mp_index] is not None and stats[i][mp_index] != '' and float(stats[i][mp_index]) > 10.0:
+				if stats[i][game_index] is not None and stats[i][game_index] != '' and float(stats[i][game_index]) > 5.0:
+					if headers[category_index] == '3P%': 
+						if float(stats[i][trey_attempt_index]) >= 5.0:
+							category_list.append(float(stats[i][category_index]))
+						else:
+							category_list.append(0.0)
+					elif headers[category_index] == 'FG%':
+						if float(stats[i][fg_attempt_index]) >= 5.0: 
+							category_list.append(float(stats[i][category_index]))
+						else:
+							category_list.append(0.0)
+					else:
+						category_list.append(float(stats[i][category_index]))
 				else:
 					category_list.append(0.0)
 			else:
 				category_list.append(0.0)
 
 	max_val_index = category_list.index(max(category_list))
-
+	if headers[category_index] == '3P%' or headers[category_index] == 'FG%':
+		value = (float(max(category_list))*100)
+		value = format(value, '.1f')
+	else:
+		value = max(category_list) 
 	leader = stats[0:n][max_val_index][player_index]
-	value = max(category_list) 
 
 	return [leader, value]
 
@@ -68,7 +82,9 @@ def run():
 	pos_index = headers.index('Pos')
 	age_index = headers.index('Age')
 	trey_percent_index = headers.index('3P%')
+	trey_attempt_index = headers.index('3PA')
 	fg_percent_index = headers.index('FG%')
+	fg_attempt_index = headers.index('FGA')
 	mp_index = headers.index('MP')
 	trb_index = headers.index('TRB')
 	ast_index = headers.index('AST')
@@ -86,29 +102,29 @@ def run():
 	leaders = []
 
 	#Assess PPG
-	leaders.append(category_leader(player_stats, n, pts_index, player_index, mp_index, game_index, headers))
+	leaders.append(category_leader(player_stats, n, pts_index, trey_attempt_index, fg_attempt_index, player_index, mp_index, game_index, headers))
 
 	#Assess RPG
-	leaders.append(category_leader(player_stats, n, trb_index, player_index, mp_index, game_index, headers))
+	leaders.append(category_leader(player_stats, n, trb_index, trey_attempt_index, fg_attempt_index, player_index, mp_index, game_index, headers))
 
 	#Assess APG
-	leaders.append(category_leader(player_stats, n, ast_index, player_index, mp_index, game_index, headers))
+	leaders.append(category_leader(player_stats, n, ast_index, trey_attempt_index, fg_attempt_index, player_index, mp_index, game_index, headers))
 
 	#Assess BPG
-	leaders.append(category_leader(player_stats, n, blk_index, player_index, mp_index, game_index, headers))
+	leaders.append(category_leader(player_stats, n, blk_index, trey_attempt_index, fg_attempt_index, player_index, mp_index, game_index, headers))
 
 	#Assess MPG
-	#leaders.append(category_leader(player_stats, n, mp_index, player_index, mp_index, headers))
+	#leaders.append(category_leader(player_stats, n, mp_index, trey_attempt_index, fg_attempt_index, player_index, mp_index, headers))
 
 	#Assess 3P% Per Game
-	leaders.append(category_leader(player_stats, n, trey_percent_index, player_index, mp_index, game_index, headers))
+	leaders.append(category_leader(player_stats, n, trey_percent_index, trey_attempt_index, fg_attempt_index, player_index, mp_index, game_index, headers))
 
 	#Assess FG% Per Game
-	leaders.append(category_leader(player_stats, n, fg_percent_index, player_index, mp_index, game_index, headers))
+	leaders.append(category_leader(player_stats, n, fg_percent_index, trey_attempt_index, fg_attempt_index, player_index, mp_index, game_index, headers))
 
 	return leaders 
 
-#NFL Analysis Functions
+####################  NFL Analysis Functions  ##########################
 def extract_name(th): 
 	html_line = str(th)
 	sub = "htm"
@@ -202,7 +218,7 @@ def nfl_run():
 
 	return leaders 
 
-#NBA Team Standings Functions 
+################    NBA Team Standings Functions   ####################
 def extract_team_name(link): 
 	linkstr = str(link)
 	index = linkstr.find("html")
@@ -285,7 +301,7 @@ def nba_standings():
 
 	return [east_standings, east_wins, east_losses, west_standings, west_wins, west_losses, all_teams, east_seed, west_seed] 
 
-#NFL Team Standings 
+##################   NFL Team Standings    ##########################
 def extract_nfl_page(name):
 	arr = name.split(" ")
 	return arr[-1].lower()
@@ -407,6 +423,51 @@ def extract_roster_age(th):
 	day = int(birthdaysplit[1][0:-1])
 	year = int(birthdaysplit[2])
 	return calculateAge(date(year, month, day))
+
+def extract_playerjersey(html):
+	team_list = ['ATL', 'BOS', 'BRK', 'CHO', 'CHI', 'CLE', 'DAL', 'DET', 'DEN', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA', 'MIL', 'MIN', 'NOP', 'NYK', 'OKC', 'ORL', 'POR', 'PHI', 'PHO', 'SAC', 'SAS', 'TOR', 'UTA', 'WAS']
+	html = str(html)
+	index = html.find("number")
+	index2 = html[index:].find("\"")
+	jerseyno = html[index+7:index+index2] 
+	player_list = [] 
+	index3 = 0
+	count = 0 
+	while count < 21:
+		index3 = html.find("html")
+		if index3 == -1:
+			break
+		index4 = html[index3:].find("</a>")
+		player = html[index3 +6:index3+index4]
+		if player in team_list:
+			html = html[index3+1:]
+			continue
+		player_list.append(player) 
+		html = html[index3+1:]
+		count+=1 
+	return [jerseyno, player_list]
+
+def nba_jersey_find(): 
+	year = 2020
+
+	#URL page we will be scraping 
+
+	url = "https://www.basketball-reference.com/leagues/NBA_{}_numbers.html".format(year)
+
+	#HTML from given URL 
+	html = urlopen(url) 
+
+	soup = BeautifulSoup(html, features='html.parser') 
+
+	#use findAll() to get column headers
+	html_raw = soup.findAll('div', {'class': 'data_grid_box'})
+
+	jersey_list = [] 
+
+	for html in html_raw:
+		jersey_list.append(extract_playerjersey(html))
+
+	return jersey_list 
 
 def lakers_roster_automate():
 	year = 2020
@@ -1333,7 +1394,12 @@ def suns_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 	player_name[1] = 'Dario Saric'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
+	
 	return final 
 
 def kings_roster_automate():
@@ -1626,14 +1692,20 @@ def suns():
 
 	roster = suns_roster_automate()
 
-
 	for index in range(len(west_standings)):
 		if 'suns' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	suns_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey[1]:
+				suns_jersey.append([jersey[0], name])
+
 	return render_template('suns.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], sunsjersey = suns_jersey)
 
 #Clippers Page
 @app.route('/clippers')

@@ -23,7 +23,7 @@
 	{% if name1 == 'James Harden' %} 
 		<img src = "{{url_for('static', filename='james_harden.jpg')}}" alt = "Scoring Leader" width = "400" height = "400">
 	{% else %} 
-		<img src = "{{url_for('static', filename='jingles.png')}}" alt = "Blocks Leader" width = "550" height = "390">
+		<img src = "{{url_for('static', filename='jingles.jpg')}}" alt = "Blocks Leader" width = "550" height = "350">
 	{% endif %}
 	<br><br>
 	<p>
@@ -39,7 +39,7 @@
 	{% if name2 == 'Andre Drummond' %} 
 		<img src = "{{url_for('static', filename='andre_drummond.jpg')}}" alt = "Rebounds Leader" width = "470" height = "320">
 	{% else %} 
-		<img src = "{{url_for('static', filename='jingles.png')}}" alt = "Blocks Leader" width = "550" height = "390">
+		<img src = "{{url_for('static', filename='jingles.jpg')}}" alt = "Blocks Leader" width = "550" height = "350">
 	{% endif %}
 	<br><br>
 	<p>
@@ -55,7 +55,7 @@
 	{% if name3 == 'LeBron James' %} 
 		<img src = "{{url_for('static', filename='lebron_james.jpg')}}" alt = "Assist Leader">
 	{% else %} 
-		<img src = "{{url_for('static', filename='jingles.png')}}" alt = "Blocks Leader" width = "550" height = "390">
+		<img src = "{{url_for('static', filename='jingles.jpg')}}" alt = "Blocks Leader" width = "550" height = "350">
 	{% endif %}
 	<br><br>
 	<p>
@@ -73,7 +73,7 @@
 	{% elif name4 == 'Jonathan Issac' %}
 		<img src = "{{url_for('static', filename='jonathan_issac.jpg')}}" alt = "Blocks Leader" width = "510" height = "320">
 	{% else %} 
-		<img src = "{{url_for('static', filename='jingles.png')}}" alt = "Blocks Leader" width = "550" height = "390">
+		<img src = "{{url_for('static', filename='jingles.jpg')}}" alt = "Blocks Leader" width = "550" height = "350">
 	{% endif %}
 	<br><br>
 	<p> 
@@ -83,17 +83,22 @@
 				<a href="/nets">Brooklyn Nets</a>
 			{% elif name5 == 'Damian Jones' %}
 				<a href="/hawks">Atlanta Hawks</a>
+			{% elif name5 == 'Devin Booker' %}
+				<a href="/suns">Phoenix Suns</a>
 			{% else %} 
 				Not available at the moment
 			{% endif %}
-		</b>
+		</b><br>
+		*At least 5 3PA Per Game
 	</p>
 	{% if name5 == 'Rodions Kurucs' %} 
 		<img src = "{{url_for('static', filename='rodions_kurucs.jpg')}}" alt = "3P% Leader" width = "470" height = "320"> 
 	{% elif name5 == 'Damian Jones' %}
 		<img src = "{{url_for('static', filename='damian_jones.png')}}" width = "530" height = "310">
+	{% elif name5 == 'Devin Booker' %}
+		<img src = "{{url_for('static', filename='devin_booker.jpg')}}" width = "500" height = "300">
 	{% else %} 
-		<img src = "{{url_for('static', filename='jingles.png')}}" alt = "Blocks Leader" width = "550" height = "390">
+		<img src = "{{url_for('static', filename='jingles.jpg')}}" alt = "Blocks Leader" width = "550" height = "350">
 	{% endif %}
 	<br><br>
 	<p>
@@ -103,17 +108,22 @@
 				<a href="/celtics">Boston Celtics</a>
 			{% elif name6 == 'Dwight Howard' %}
 				<a href="/lakers">Los Angeles Lakers</a>
+			{% elif name6 == 'Mitchell Robinson' %}
+				<a href="/knicks">New York Knicks</a>
 			{% else %} 
 				Not available at the moment
 			{% endif %}
-		</b>
+		</b><br>
+		*At least 5 FGA Per Game
 	</p>
 	{% if name6 == 'Robert Williams' %} 
 		<img src = "{{url_for('static', filename='robert_williams.jpg')}}" alt = "FG% Leader" width = "530" height = "320">
 	{% elif name6 == 'Dwight Howard' %}
 		<img src = "{{url_for('static', filename='dwight_howard.jpg')}}" alt = "FG% Leader" width = "530" height = "320">
+	{% elif name6 == 'Mitchell Robinson' %}
+		<img src = "{{url_for('static', filename='mitchell_robinson2.jpg')}}" alt = "FG% Leader" width = "530" height = "320">
 	{% else %} 
-		<img src = "{{url_for('static', filename='jingles.png')}}" alt = "Blocks Leader" width = "550" height = "390">
+		<img src = "{{url_for('static', filename='jingles.jpg')}}" alt = "Blocks Leader" width = "550" height = "350">
 	{% endif %}
 	<br><br><br><br><br><br>
 	

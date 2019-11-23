@@ -10,25 +10,25 @@
 			<img src = "{{url_for('static', filename='afc_logo.png')}}" alt = "AFC Logo" width = "130" height = "130" hspace = "0">
 			<h2>AFC East</h2>   
 			{% for team in afceast %}
-			<a href="/{{team[3]}}">{{team[0]}}:</a> {{team[1]}}-{{team[2]}}<br>
+			<a href="/{{team[3]}}">{{team[0]}}</a>: {{team[1]}}-{{team[2]}}<br>
 			{% endfor %}
 		</p>
 		<p>
 			<h2>AFC West</h2> 
 			{% for team in afcwest %}
-			<a href="/{{team[3]}}">{{team[0]}}:</a> {{team[1]}}-{{team[2]}}<br>
+			<a href="/{{team[3]}}">{{team[0]}}</a>: {{team[1]}}-{{team[2]}}<br>
 			{% endfor %}
 		</p>
 		<p>
 			<h2>AFC North</h2> 
 			{% for team in afcnorth %}
-			<a href="/{{team[3]}}">{{team[0]}}:</a> {{team[1]}}-{{team[2]}}<br>
+			<a href="/{{team[3]}}">{{team[0]}}</a>: {{team[1]}}-{{team[2]}}<br>
 			{% endfor %}
 		</p>
 		<p>
 			<h2>AFC South</h2>  
 			{% for team in afcsouth %}
-			<a href="/{{team[3]}}">{{team[0]}}:</a> {{team[1]}}-{{team[2]}}<br>
+			<a href="/{{team[3]}}">{{team[0]}}</a>: {{team[1]}}-{{team[2]}}<br>
 			{% endfor %}
 		</p>
 			
@@ -38,25 +38,25 @@
 			<img src = "{{url_for('static', filename='nfc_logo.png')}}" alt = "NFC Logo" width = "130" height = "130">
 			<h2>NFC East</h2>  
 			{% for team in nfceast %}
-			<a href="/{{team[3]}}">{{team[0]}}:</a> {{team[1]}}-{{team[2]}}<br>
+			<a href="/{{team[3]}}">{{team[0]}}</a>: {{team[1]}}-{{team[2]}}<br>
 			{% endfor %}
 		</p>
 		<p>
 			<h2>NFC West</h2>  
 			{% for team in nfcwest %}
-			<a href="/{{team[3]}}">{{team[0]}}:</a> {{team[1]}}-{{team[2]}}<br>
+			<a href="/{{team[3]}}">{{team[0]}}</a>: {{team[1]}}-{{team[2]}}<br>
 			{% endfor %}
 		</p>
 		<p>
 			<h2>NFC North</h2> 
 			{% for team in nfcnorth %}
-			<a href="/{{team[3]}}">{{team[0]}}:</a> {{team[1]}}-{{team[2]}}<br>
+			<a href="/{{team[3]}}">{{team[0]}}</a>: {{team[1]}}-{{team[2]}}<br>
 			{% endfor %}
 		</p>
 		<p>
 			<h2>NFC South</h2>
 			{% for team in nfcsouth %}
-			<a href="/{{team[3]}}">{{team[0]}}:</a> {{team[1]}}-{{team[2]}}<br>
+			<a href="/{{team[3]}}">{{team[0]}}</a>: {{team[1]}}-{{team[2]}}<br>
 			{% endfor %}
 		</p>
 	</div>
