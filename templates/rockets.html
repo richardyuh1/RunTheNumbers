@@ -34,6 +34,7 @@
 		<table class="tg">
 		  <tr>
 		    <th class="tg-axmw">Name</th>
+		    <th class="tg-axmw">No.</th>
 	    	<th class="tg-axmw">Pos</th>
 	    	<th class="tg-axmw">Age</th>
 	    	<th class="tg-axmw">Height</th>
@@ -43,7 +44,28 @@
 		  </tr>
 		  {% for name in player_name %}
 	  	  <tr>
-		  	<td class="tg-r28n">{{name}}</td>
+		  	<td class="tg-r28n">
+		  		{% if 'Ne' in name %}
+		  			Nene
+		  		{% else %}
+		  			{{name}}
+		  		{% endif %}
+		  	</td>
+		  	<td class="tg-r28n">
+	  		{% if name == 'Gerald Green' %}
+	  			14
+	  		{% elif 'Ne' in name %}
+	  			42
+	  		{% elif name == 'Michael Frazier' %}
+	  			7
+	  		{% else %}
+	  			{% for jersey in rocketsjersey %}
+	  				{% if name == jersey[1] %}
+	  					{{jersey[0]}}
+	  				{% endif %}
+	  			{% endfor %}
+	  		{% endif %}
+			</td>
 		  	<td class="tg-r28n">{{player_pos[loop.index0]}}</td>
 		  	<td class="tg-r28n">{{player_age[loop.index0]}}</td>
 		  	<td class="tg-r28n">{{player_height[loop.index0]}}</td>

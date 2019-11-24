@@ -430,7 +430,7 @@ def extract_playerjersey(html):
 	index = html.find("number")
 	index2 = html[index:].find("\"")
 	jerseyno = html[index+7:index+index2] 
-	player_list = [] 
+	player_dict = {} 
 	index3 = 0
 	count = 0 
 	while count < 21:
@@ -442,10 +442,10 @@ def extract_playerjersey(html):
 		if player in team_list:
 			html = html[index3+1:]
 			continue
-		player_list.append(player) 
+		player_dict[player] = jerseyno
 		html = html[index3+1:]
 		count+=1 
-	return [jerseyno, player_list]
+	return player_dict
 
 def nba_jersey_find(): 
 	year = 2020
@@ -502,7 +502,10 @@ def lakers_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def rockets_roster_automate():
@@ -538,9 +541,14 @@ def rockets_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	player_name[13] = 'Nene'
+	for i in range(len(player_name)):
+		if 'Ne' in player_name[i] :
+			player_name[i] = 'Nene'
 
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def celtics_roster_automate():
@@ -576,7 +584,10 @@ def celtics_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def magic_roster_automate():
@@ -612,8 +623,10 @@ def magic_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	player_name[9] = 'Nikola Vucevic'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def nets_roster_automate():
@@ -649,11 +662,10 @@ def nets_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	# Fix names 
-	player_name[3] = 'Dzanan Musa'
-	player_name[16] = 'Timothe Luwawu-Cabarrot'
+	#Jersey No
+	jersey_list = nba_jersey_find()
 
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def pistons_roster_automate():
@@ -689,7 +701,10 @@ def pistons_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def warriors_roster_automate():
@@ -725,9 +740,10 @@ def warriors_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	player_name[5] = 'Alen Smailagic'
+	#Jersey No
+	jersey_list = nba_jersey_find()
 
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def knicks_roster_automate():
@@ -763,7 +779,10 @@ def knicks_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def clippers_roster_automate():
@@ -799,7 +818,10 @@ def clippers_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def grizzlies_roster_automate():
@@ -835,8 +857,10 @@ def grizzlies_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	player_name[14] = 'Jonas Valanciunas'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def hawks_roster_automate():
@@ -872,7 +896,10 @@ def hawks_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def hornets_roster_automate():
@@ -908,9 +935,10 @@ def hornets_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	player_name[5] = 'Willy Hernangomez'
+	#Jersey No
+	jersey_list = nba_jersey_find()
 
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def bulls_roster_automate():
@@ -945,9 +973,11 @@ def bulls_roster_automate():
 		player_season.append(extract_roster_season(th))
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
-	player_name[3] = 'Cristiano Felicio'
-	player_name[10] = 'Tomas Satoransky'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def cavaliers_roster_automate():
@@ -983,8 +1013,10 @@ def cavaliers_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	player_name[5] = 'Ante Zizic'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def mavericks_roster_automate():
@@ -1019,11 +1051,11 @@ def mavericks_roster_automate():
 		player_season.append(extract_roster_season(th))
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
+	
+	#Jersey No
+	jersey_list = nba_jersey_find()
 
-	player_name[4] = 'Luka Doncic'
-	player_name[11] = 'Kristaps Porzingis'
-	player_name[-1] = 'Boban Marjanovic'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def nuggets_roster_automate():
@@ -1058,11 +1090,11 @@ def nuggets_roster_automate():
 		player_season.append(extract_roster_season(th))
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
+	
+	#Jersey No
+	jersey_list = nba_jersey_find()
 
-	player_name[2] = 'Juan Hernangomez'
-	player_name[-1] = 'Vlatko Cancar'
-	player_name[9] = 'Nikola Jokic'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def pacers_roster_automate():
@@ -1099,7 +1131,10 @@ def pacers_roster_automate():
 		player_age.append(extract_roster_age(th))
 
 	
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def heat_roster_automate():
@@ -1135,8 +1170,10 @@ def heat_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	player_name[0] = 'Goran Dragic'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def bucks_roster_automate():
@@ -1172,8 +1209,10 @@ def bucks_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	player_name[4] = 'Eryan Ilyasova'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def timberwolves_roster_automate():
@@ -1210,7 +1249,10 @@ def timberwolves_roster_automate():
 		player_age.append(extract_roster_age(th))
 
 
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def pelicans_roster_automate():
@@ -1246,8 +1288,10 @@ def pelicans_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	player_name[-4] = 'Nicolo Melli'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def thunder_roster_automate():
@@ -1283,8 +1327,10 @@ def thunder_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	player_name[0] = 'Dennis Schroder'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def blazers_roster_automate():
@@ -1320,9 +1366,16 @@ def blazers_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	player_name[4] = 'Skal Labissiere'
-	player_name[7] = 'Jusuf Nurkic'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	for i in range(len(player_name)):
+		if 'Skal' in player_name[i]:
+			player_name[i] = 'Skal Labissiere'
+		if 'Jusuf' in player_name[i]:
+			player_name[i] = 'Jusuf Nurkic'
+
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def sixers_roster_automate():
@@ -1358,7 +1411,10 @@ def sixers_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def suns_roster_automate():
@@ -1393,7 +1449,10 @@ def suns_roster_automate():
 		player_season.append(extract_roster_season(th))
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
-	player_name[1] = 'Dario Saric'
+	
+	#for i in range(len(player_name)):
+		#if 'Dario' in player_name[i]:
+			#player_name[i] = 'Dario Saric'
 	
 	#Jersey No
 	jersey_list = nba_jersey_find()
@@ -1434,8 +1493,11 @@ def kings_roster_automate():
 		player_season.append(extract_roster_season(th))
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
-	player_name[4] = 'Bogdan Bogdanovic'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def spurs_roster_automate():
@@ -1470,9 +1532,11 @@ def spurs_roster_automate():
 		player_season.append(extract_roster_season(th))
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
-	player_name[2] = 'Jakob Poltl'
-	player_name[11] = 'Luka Samanic'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def raptors_roster_automate():
@@ -1508,7 +1572,10 @@ def raptors_roster_automate():
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
 	
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def jazz_roster_automate():
@@ -1543,8 +1610,11 @@ def jazz_roster_automate():
 		player_season.append(extract_roster_season(th))
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
-	player_name[9] = 'Bojan Bogdanovic'
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 def wizards_roster_automate():
@@ -1579,8 +1649,11 @@ def wizards_roster_automate():
 		player_season.append(extract_roster_season(th))
 		player_college.append(extract_roster_college(th))
 		player_age.append(extract_roster_age(th))
-	player_name[7] = "Davis Bertans"
-	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age]
+
+	#Jersey No
+	jersey_list = nba_jersey_find()
+
+	final = [player_name, player_pos, player_height, player_weight, player_season, player_college, player_age, jersey_list]
 	return final 
 
 #Index
@@ -1614,9 +1687,16 @@ def rockets():
 		if 'rockets' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	rockets_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				rockets_jersey.append([jersey[name], name])
+
 	return render_template('rockets.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], rocketsjersey = rockets_jersey)
 
 #Lakers Page
 @app.route('/lakers')
@@ -1635,9 +1715,16 @@ def lakers():
 		if 'lakers' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	lakers_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				lakers_jersey.append([jersey[name], name])
+
 	return render_template('lakers.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], lakersjersey = lakers_jersey)
 
 #Nuggets Page
 @app.route('/nuggets')
@@ -1656,9 +1743,16 @@ def nuggets():
 		if 'nuggets' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	nuggets_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				nuggets_jersey.append([jersey[name], name])
+
 	return render_template('nuggets.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], nuggetsjersey = nuggets_jersey)
 
 #Jazz Page
 @app.route('/jazz')
@@ -1676,9 +1770,16 @@ def jazz():
 		if 'jazz' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	jazz_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				jazz_jersey.append([jersey[name], name])
+
 	return render_template('jazz.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], jazzjersey = jazz_jersey)
 
 #Suns Page
 @app.route('/suns')
@@ -1700,8 +1801,8 @@ def suns():
 	suns_jersey = [] 
 	for name in roster[0]:
 		for jersey in jerseylist:
-			if name in jersey[1]:
-				suns_jersey.append([jersey[0], name])
+			if name in jersey.keys():
+				suns_jersey.append([jersey[name], name])
 
 	return render_template('suns.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
@@ -1723,9 +1824,16 @@ def clippers():
 		if 'clippers' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	clippers_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				clippers_jersey.append([jersey[name], name])
+
 	return render_template('clippers.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], clippersjersey = clippers_jersey)
 
 #Mavericks Page
 @app.route('/mavericks')
@@ -1744,9 +1852,16 @@ def mavericks():
 		if 'mavericks' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	mavericks_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				mavericks_jersey.append([jersey[name], name])
+
 	return render_template('mavericks.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], mavericksjersey = mavericks_jersey)
 
 #Timberwolves Page
 @app.route('/timberwolves')
@@ -1764,9 +1879,16 @@ def timberwolves():
 		if 'timberwolves' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	wolves_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				wolves_jersey.append([jersey[name], name])
+
 	return render_template('timberwolves.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], wolvesjersey = wolves_jersey)
 
 #Grizzlies Page
 @app.route('/grizzlies')
@@ -1784,9 +1906,16 @@ def grizzlies():
 		if 'grizzlies' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	grizzlies_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				grizzlies_jersey.append([jersey[name], name])
+
 	return render_template('grizzlies.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], grizzliesjersey = grizzlies_jersey)
 
 #Thunder Page
 @app.route('/thunder')
@@ -1804,9 +1933,16 @@ def thunder():
 		if 'thunder' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	thunder_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				thunder_jersey.append([jersey[name], name])
+
 	return render_template('thunder.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], thunderjersey = thunder_jersey)
 
 #Blazers Page
 @app.route('/trailblazers')
@@ -1825,9 +1961,16 @@ def blazers():
 		if 'blazers' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	blazers_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				blazers_jersey.append([jersey[name], name])
+
 	return render_template('trailblazers.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], blazersjersey = blazers_jersey)
 
 #Spurs Page
 @app.route('/spurs')
@@ -1846,9 +1989,16 @@ def spurs():
 		if 'spurs' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	spurs_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				spurs_jersey.append([jersey[name], name])
+
 	return render_template('spurs.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], spursjersey = spurs_jersey)
 
 #Kings Page
 @app.route('/kings')
@@ -1867,9 +2017,16 @@ def kings():
 		if 'kings' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	kings_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				kings_jersey.append([jersey[name], name])
+
 	return render_template('kings.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], kingsjersey = kings_jersey)
 
 #Pelicans Page
 @app.route('/pelicans')
@@ -1888,9 +2045,16 @@ def pelicans():
 		if 'pelicans' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	pelicans_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				pelicans_jersey.append([jersey[name], name])
+
 	return render_template('pelicans.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], pelicansjersey = pelicans_jersey)
 
 #Warriors Page
 @app.route('/warriors')
@@ -1908,9 +2072,16 @@ def warriors():
 		if 'warriors' in west_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	warriors_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				warriors_jersey.append([jersey[name], name])
+
 	return render_template('warriors.html', wins = west_wins[team_index], losses = west_losses[team_index], seed = west_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], warriorsjersey = warriors_jersey)
 
 #Heat Page
 @app.route('/heat')
@@ -1925,9 +2096,17 @@ def heat():
 	for index in range(len(east_standings)):
 		if 'heat' in east_standings[index].lower():
 			team_index = index 
+
+	jerseylist = roster[7]
+	heat_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				heat_jersey.append([jersey[name], name])
+
 	return render_template('heat.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], heatjersey = heat_jersey)
 
 #Bucks Page
 @app.route('/bucks')
@@ -1942,9 +2121,17 @@ def bucks():
 	for index in range(len(east_standings)):
 		if 'bucks' in east_standings[index].lower():
 			team_index = index 
+
+	jerseylist = roster[7]
+	bucks_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				bucks_jersey.append([jersey[name], name])
+
 	return render_template('bucks.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], bucksjersey = bucks_jersey)
 
 #Raptors Page
 @app.route('/raptors')
@@ -1959,9 +2146,17 @@ def raptors():
 	for index in range(len(east_standings)):
 		if 'raptors' in east_standings[index].lower():
 			team_index = index 
+
+	jerseylist = roster[7]
+	raptors_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				raptors_jersey.append([jersey[name], name])
+
 	return render_template('raptors.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], raptorsjersey = raptors_jersey)
 
 #76ers Page
 @app.route('/76ers')
@@ -1976,9 +2171,16 @@ def sixers():
 	for index in range(len(east_standings)):
 		if '76ers' in east_standings[index].lower():
 			team_index = index 
+	jerseylist = roster[7]
+	sixers_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				sixers_jersey.append([jersey[name], name])
+
 	return render_template('76ers.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], sixersjersey = sixers_jersey)
 
 #Pacers Page
 @app.route('/pacers')
@@ -1993,9 +2195,17 @@ def pacers():
 	for index in range(len(east_standings)):
 		if 'pacers' in east_standings[index].lower():
 			team_index = index 
+
+	jerseylist = roster[7]
+	pacers_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				pacers_jersey.append([jersey[name], name])
+
 	return render_template('pacers.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], pacersjersey = pacers_jersey)
 
 #Hornets Page
 @app.route('/hornets')
@@ -2010,9 +2220,17 @@ def hornets():
 	for index in range(len(east_standings)):
 		if 'hornets' in east_standings[index].lower():
 			team_index = index 
+
+	jerseylist = roster[7]
+	hornets_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				hornets_jersey.append([jersey[name], name])
+
 	return render_template('hornets.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], hornetsjersey = hornets_jersey)
 
 #Cavaliers Page
 @app.route('/cavaliers')
@@ -2027,9 +2245,17 @@ def cavaliers():
 	for index in range(len(east_standings)):
 		if 'cavaliers' in east_standings[index].lower():
 			team_index = index 
+
+	jerseylist = roster[7]
+	cavaliers_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				cavaliers_jersey.append([jersey[name], name])
+
 	return render_template('cavaliers.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], cavaliersjersey = cavaliers_jersey)
 
 #Hawks Page
 @app.route('/hawks')
@@ -2044,9 +2270,17 @@ def hawks():
 	for index in range(len(east_standings)):
 		if 'hawks' in east_standings[index].lower():
 			team_index = index 
+
+	jerseylist = roster[7]
+	hawks_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				hawks_jersey.append([jersey[name], name])
+
 	return render_template('hawks.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], hawksjersey = hawks_jersey)
 
 #Bulls Page
 @app.route('/bulls')
@@ -2062,9 +2296,16 @@ def bulls():
 		if 'bulls' in east_standings[index].lower():
 			team_index = index 
 
+	jerseylist = roster[7]
+	bulls_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				bulls_jersey.append([jersey[name], name])
+
 	return render_template('bulls.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], bullsjersey = bulls_jersey)
 
 #Wizards Page
 @app.route('/wizards')
@@ -2079,9 +2320,17 @@ def wizards():
 	for index in range(len(east_standings)):
 		if 'wizards' in east_standings[index].lower():
 			team_index = index 
+
+	jerseylist = roster[7]
+	wizards_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				wizards_jersey.append([jersey[name], name])
+
 	return render_template('wizards.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], wizardsjersey = wizards_jersey)
 
 #Knicks Page
 @app.route('/knicks')
@@ -2096,9 +2345,17 @@ def knicks():
 	for index in range(len(east_standings)):
 		if 'knicks' in east_standings[index].lower():
 			team_index = index 
+
+	jerseylist = roster[7]
+	knicks_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				knicks_jersey.append([jersey[name], name])
+
 	return render_template('knicks.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], knicksjersey = knicks_jersey)
 
 #Nets Page
 @app.route('/nets')
@@ -2113,9 +2370,17 @@ def nets():
 	for index in range(len(east_standings)):
 		if 'nets' in east_standings[index].lower():
 			team_index = index 
+
+	jerseylist = roster[7]
+	nets_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				nets_jersey.append([jersey[name], name])
+
 	return render_template('nets.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], netsjersey = nets_jersey)
 
 #Pistons Page
 @app.route('/pistons')
@@ -2130,9 +2395,17 @@ def pistons():
 	for index in range(len(east_standings)):
 		if 'pistons' in east_standings[index].lower():
 			team_index = index 
+
+	jerseylist = roster[7]
+	pistons_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				pistons_jersey.append([jersey[name], name])
+
 	return render_template('pistons.html', wins = east_wins[team_index], losses = east_losses[team_index], seed = east_seed[team_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], pistonsjersey = pistons_jersey)
 
 #Celtics Page
 @app.route('/celtics')
@@ -2147,9 +2420,17 @@ def celtics():
 	for index in range(len(east_standings)):
 		if 'celtics' in east_standings[index].lower():
 			celtics_index = index 
-	return render_template('celtics.html', wins = east_wins[celtics_index], losses = east_losses[celtics_index], seed = east_seed[celtics_index],
+
+	jerseylist = roster[7]
+	celtics_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				celtics_jersey.append([jersey[name], name])
+
+	return render_template('celtics.html', wins = east_wins[celtics_index], losses = east_losses[celtics_index], seed = east_seed[celtics_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], celticsjersey = celtics_jersey)
 
 #Magic Page
 @app.route('/magic')
@@ -2164,9 +2445,17 @@ def magic():
 	for index in range(len(east_standings)):
 		if 'magic' in east_standings[index].lower():
 			magic_index = index 
+
+	jerseylist = roster[7]
+	magic_jersey = [] 
+	for name in roster[0]:
+		for jersey in jerseylist:
+			if name in jersey.keys():
+				magic_jersey.append([jersey[name], name])
+
 	return render_template('magic.html', wins = east_wins[magic_index], losses = east_losses[magic_index], seed = east_seed[magic_index], 
 		player_name = roster[0], player_pos = roster[1], player_height = roster[2], player_weight = roster[3], player_season = roster[4], 
-		player_college = roster[5], player_age = roster[6])
+		player_college = roster[5], player_age = roster[6], magicjersey = magic_jersey)
 
 
 #Patriots Page

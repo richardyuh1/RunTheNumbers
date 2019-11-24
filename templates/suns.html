@@ -44,13 +44,27 @@
 		  </tr>
 		  {% for name in player_name %}
 	  	  <tr>
-		  	<td class="tg-r28n">{{name}}</td>
 		  	<td class="tg-r28n">
-		  		{% for jersey in sunsjersey %}
-		  			{% if name == jersey[1] %}
-		  				{{jersey[0]}}
-		  			{% endif %}
-		  		{% endfor %}
+		  		{% if 'Dario' in name %}
+		  			Dario Saric
+		  		{% else %}
+		  			{{name}}
+		  		{% endif %}
+		  	</td>
+		  	<td class="tg-r28n">
+		  		{% if name == 'Kelly Oubre Jr.' %}
+		  			3
+		  		{% elif name == 'Jalen Lecque' %}
+		  			0
+		  		{% elif name == 'Ty Jerome' %}
+		  			10
+		  		{% else %}
+		  			{% for jersey in sunsjersey %}
+		  				{% if name == jersey[1] %}
+		  					{{jersey[0]}}
+		  				{% endif %}
+		  			{% endfor %}
+		  		{% endif %}
 		  	</td>
 		  	<td class="tg-r28n">{{player_pos[loop.index0]}}</td>
 		  	<td class="tg-r28n">{{player_age[loop.index0]}}</td>
