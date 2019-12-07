@@ -1,6 +1,20 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+	<script language="javascript" type="text/javascript">
+	    function chngimg() {
+	        var img = document.getElementById('imgplus').src;
+	        if (img.indexOf('lakers_dc2.png')!=-1) {
+	            document.getElementById('imgplus').src  = 'static/lakers_dc1.png';
+	            document.getElementById('lineup').innerHTML  = 'Starting Lineup';
+	        }
+	         else {
+	           document.getElementById('imgplus').src = 'static/lakers_dc2.png';
+	           document.getElementById('lineup').innerHTML = 'Bench Lineup';
+	       }
+
+	    }
+	</script>
 	<br>
 	<h1>Los Angeles Lakers</h1>
 	<b>Coach: Frank Vogel</b><br>
@@ -66,7 +80,11 @@
 	  	<td class="tg-r28n">{{player_college[loop.index0]}}</td>
 	  </tr>
 	  {% endfor %}
-	</table>
+	</table><br>
+	<h2>Depth Chart</h2>
+		<text id ="lineup" alt = "">Starting Lineup</text><br>
+		<img id="imgplus" alt="" src="static/lakers_dc1.png" onmouseover="this.style.cursor='pointer'" onclick="chngimg()" width = "600" height = "330"><br>
+		<img src = "{{url_for('static', filename='lebron_james.png')}}" alt = "lebron james" width = "53" height = "65">
 	<br><br><br><br>
 
 {% endblock %}

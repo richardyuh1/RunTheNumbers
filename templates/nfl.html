@@ -15,6 +15,8 @@
 	</p>
 	{% if name1 == 'Philip Rivers' %}
 		<img src = "{{url_for('static', filename='philip_rivers.jpg')}}" alt = "Passes Completed" width = "470" height = "310">
+	{% elif name1 == 'Dak Prescott' %}
+		<img src = "{{url_for('static', filename='dak_prescott3.jpg')}}" alt = "Passes Completed" width = "470" height = "310">
 	{% else %}
 		<img src = "{{url_for('static', filename='roger_goodell.jpg')}}" <alt = "Passes Completed" width = "681" height = "383">
 	{% endif %}
@@ -37,6 +39,8 @@
 	</p>
 	{% if name3 == 'Russell Wilson' %}
 		<img src = "{{url_for('static', filename='russell_wilson.jpg')}}" alt = "Passer Rating" width = "480" height = "340">
+	{% elif name3 == 'Ryan Tannehill' %}
+		<img src = "{{url_for('static', filename='ryan_tannehill.jpg')}}" alt = "Passer Rating" width = "500" height = "340">
 	{% else %}
 		<img src = "{{url_for('static', filename='roger_goodell.jpg')}}" <alt = "Passer Rating" width = "681" height = "383">
 	{% endif %}

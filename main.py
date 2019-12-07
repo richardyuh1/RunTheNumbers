@@ -184,11 +184,13 @@ def nfl_run():
 
 	team_dict = {'LAC': 'Los Angeles Chargers', 'BAL': 'Baltimore Ravens', 'SEA': 'Seattle Seahawks', 'NOR': 'New Orleans Saints', 'DAL': 'Dallas Cowboys', 
 	'NYJ': 'New York Jets', 'TAM': 'Tampa Bay Buccaneers', 'NYG': 'New York Giants', 'DET': 'Detroit Lions', 'CIN': 'Cincinnati Bengals', 'KAN': 'Kansas City Chiefs', 
-	'ATL': 'Atlanta Falcons', 'MIN': 'Minnesota Vikings', 'CAR': 'Carolina Panthers', 'NWE': 'New England Patriots'}
+	'ATL': 'Atlanta Falcons', 'MIN': 'Minnesota Vikings', 'CAR': 'Carolina Panthers', 'NWE': 'New England Patriots', 'TEN': 'Tennessee Titans', 'ARI': 'Arizona Cardinals', 'GNB': 'Green Bay Packers',
+	'CLE': 'Cleveland Browns'}
 
 	team_page = {'LAC': '/chargers', 'BAL': '/ravens', 'SEA': '/seahawks', 'NOR': '/saints', 'DAL': '/cowboys', 
 	'NYJ': '/jets', 'TAM': '/buccaneers', 'NYG': '/giants', 'DET': '/lions', 'CIN': '/bengals', 'KAN': '/chiefs', 
-	'ATL': '/falcons', 'MIN': '/vikings', 'CAR': '/panthers', 'NWE': '/patriots'}
+	'ATL': '/falcons', 'MIN': '/vikings', 'CAR': '/panthers', 'NWE': '/patriots', 'TEN': '/titans', 'ARI': '/cardinals', 'GNB': '/packers', 
+	'CLE': 'Cleveland Browns'}
 
 	player_list = [] 
 	category_list = [] 
